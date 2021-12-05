@@ -2,3 +2,10 @@
   min-height: 50px;
   max-width: 150px;
 }
+
+@media (max-width: 584px) {
+  .profile__add-button-image {
+    margin: 36px 0 0 0;
+    min-width: 282px;
+  }
+}

@@ -2,3 +2,16 @@
   margin: 50px auto 0 auto;
   max-width: 880px;
 }
+
+@media (max-width: 880px) {
+  .photos {
+    max-width: 584px;
+  }
+}
+
+@media (max-width: 584px) {
+  .photos {
+    margin: 36px auto 0 auto;
+    max-width: 282px;
+  }
+}

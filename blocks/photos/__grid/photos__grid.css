@@ -7,3 +7,17 @@
   list-style: none;
   justify-items: center;
 }
+
+@media (max-width: 880px) {
+  .photos__grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 584px) {
+  .photos__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+  }
+}

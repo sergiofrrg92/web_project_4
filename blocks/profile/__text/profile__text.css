@@ -1,3 +1,9 @@
 .profile__text {
   margin: 0 0 0 30px;
 }
+
+@media (max-width: 584px) {
+  .profile__text {
+    margin: 30px auto 0 auto;
+  }
+}

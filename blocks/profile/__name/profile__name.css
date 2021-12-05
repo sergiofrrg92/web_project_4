@@ -5,3 +5,10 @@
   font-style: normal;
   line-height: 48px;
 }
+
+@media (max-width: 584px) {
+  .profile__name {
+    font-size: 22px;
+    line-height: 27px;
+  }
+}
