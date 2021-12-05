@@ -1,3 +1,9 @@
 .photo-card__footer {
-  max-width: 282px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0 auto;
+  max-width: 246px;
+  border-radius: 0 0 10px 10px;
+  padding: 25px 0 31px 0;
 }
