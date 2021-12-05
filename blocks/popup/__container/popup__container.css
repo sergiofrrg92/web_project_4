@@ -1,0 +1,10 @@
+.popup__container {
+  color: #000;
+  margin: auto;
+  min-width: 430px;
+  min-height: 330px;
+  z-index: 1;
+  background: #fff;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
