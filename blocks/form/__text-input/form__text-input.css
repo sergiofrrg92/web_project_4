@@ -1,0 +1,13 @@
+.form__text-input {
+  border: 0px solid;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+  padding-bottom: 13px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.form__text-input:first-of-type {
+  margin: 0 0 30px 0;
+}

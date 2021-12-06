@@ -164,7 +164,7 @@
     <footer class="footer">
       <p class="footer__text">&copy; 2021 Around The U.S.</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup_opened">
       <div class="popup__container">
         <a class="popup__close-button" href="#"
           ><img
@@ -172,24 +172,23 @@
             src="images/close_icon-vector.svg"
             alt="Closing button"
         /></a>
-        <div class="popup__container-content">
-          <p class="popup__container-title">Edit profile</p>
-          <form class="form">
-            <input
-              class="form__text-input"
-              type="text"
-              name="name"
-              placeholder="Name"
-            />
-            <input
-              class="form__text-input"
-              type="text"
-              name="about-me"
-              placeholder="About me"
-            />
-            <button class="form__save-button" type="submit">Save</button>
-          </form>
-        </div>
+        <form class="form">
+          <p class="form__title">Edit profile</p>
+
+          <input
+            class="form__text-input"
+            type="text"
+            name="name"
+            placeholder="Name"
+          />
+          <input
+            class="form__text-input"
+            type="text"
+            name="about-me"
+            placeholder="About me"
+          />
+          <button class="form__save-button" type="submit">Save</button>
+        </form>
       </div>
     </div>
     <script src="scripts/index.js"></script>

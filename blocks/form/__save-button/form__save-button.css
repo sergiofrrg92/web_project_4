@@ -1,8 +1,8 @@
 .form__save-button {
-  margin: 48px auto 36px auto;
+  margin: 48px auto 0 auto;
   background: #000;
   color: #fff;
-  width: 83%;
+  width: 100%;
   font-weight: normal;
   font-stretch: normal;
   font-size: 18px;
