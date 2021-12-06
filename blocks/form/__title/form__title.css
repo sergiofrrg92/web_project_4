@@ -6,3 +6,10 @@
   font-size: 24px;
   line-height: 29px;
 }
+
+@media (max-width: 584px) {
+  .form__title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

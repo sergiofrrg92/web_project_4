@@ -9,3 +9,11 @@
   line-height: 22px;
   padding: 13px 0;
 }
+
+@media (max-width: 584px) {
+  .form__save-button {
+    margin: 46px auto 0 auto;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
