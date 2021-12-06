@@ -1,0 +1,11 @@
+.form__save-button {
+  margin: 48px auto 36px auto;
+  background: #000;
+  color: #fff;
+  width: 83%;
+  font-weight: normal;
+  font-stretch: normal;
+  font-size: 18px;
+  line-height: 22px;
+  padding: 13px 0;
+}

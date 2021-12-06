@@ -5,4 +5,6 @@ function togglePopUp(){
 }
 
 let editButton = document.querySelector(".profile__edit-button");
+let closeButton = document.querySelector(".popup__close-button");
 editButton.addEventListener("click", togglePopUp);
+closeButton.addEventListener("click", togglePopUp);
