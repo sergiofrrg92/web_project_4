@@ -1,16 +1,24 @@
 # Project 4: Around The U.S.
 
-### Overview
+### Description
 
-* Figma
-* Images
+First Practicum project with scripting.
+In this project we will develop a responsive web page using all the technologies and techniques learnt in the past blocks.
+In addition, we will sprinkle the web page with a bit of scripting so the user can interact with it.
 
-**Figma**
+### Technologies used
 
-* [Link to the project in Figma](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
+## Responsive Design
 
-**Images**
+- HTML
+- CSS
+- Flebox
+- Grid
 
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
+## Scripting
 
-Have fun with JavaScript!
+- Javascript
+
+### Github Pages
+
+**https://sergiofrrg92.github.io/web_project_4/**
