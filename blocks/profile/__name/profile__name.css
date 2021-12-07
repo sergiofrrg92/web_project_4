@@ -1,10 +1,22 @@
 .profile__name {
-  display: inline;
+  display: inline-block;
+  vertical-align: text-bottom;
   margin: 0;
+  padding-bottom: 0;
   font-size: 42px;
   font-weight: 500;
   font-style: normal;
   line-height: 48px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 450px;
+}
+
+@media (max-width: 880px) {
+  .profile__name {
+    max-width: 200px;
+  }
 }
 
 @media (max-width: 584px) {
