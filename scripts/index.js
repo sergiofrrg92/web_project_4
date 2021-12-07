@@ -4,7 +4,6 @@ const closeButton = popup.querySelector('.popup__close-button');
 const form = popup.querySelector('.form');
 const nameInput = form.querySelector('.form__text-input[name="name"]');
 const descriptionInput = form.querySelector('.form__text-input[name="about-me"]');
-const saveButton = form.querySelector('.form__save-button');
 
 const profile = document.querySelector('.profile');
 const editButton = profile.querySelector(".profile__edit-button");
