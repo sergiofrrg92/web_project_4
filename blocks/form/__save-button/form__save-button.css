@@ -10,6 +10,10 @@
   padding: 13px 0;
 }
 
+.form__save-button:hover {
+  background: rgb(0, 0, 0, 0.8);
+}
+
 @media (max-width: 584px) {
   .form__save-button {
     margin: 46px auto 0 auto;

@@ -3,6 +3,10 @@
   max-width: 150px;
 }
 
+.profile__add-button-image:hover {
+  opacity: 0.6;
+}
+
 @media (max-width: 584px) {
   .profile__add-button-image {
     margin: 36px 0 0 0;
