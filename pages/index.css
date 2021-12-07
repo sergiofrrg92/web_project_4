@@ -2,7 +2,6 @@
 @import url(../fonts/InterWeb/inter.css);
 @import url(../blocks/page/page.css);
 @import url(../blocks/header/header.css);
-@import url(../blocks/header/__divider/header__divider.css);
 @import url(../blocks/logo/logo.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__info/profile__info.css);
@@ -11,8 +10,7 @@
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__description/profile__description.css);
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
-@import url(../blocks/profile/__edit-button-image/profile__edit-button-image.css);
-@import url(../blocks/profile/__add-button-image/__add-button-image.css);
+@import url(../blocks/profile/__add-button/__add-button.css);
 @import url(../blocks/photos/photos.css);
 @import url(../blocks/photos/__grid/photos__grid.css);
 @import url(../blocks/photo-card/photo-card.css);
