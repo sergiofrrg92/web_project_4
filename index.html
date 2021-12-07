@@ -62,7 +62,7 @@
             />
             <div class="photo-card__footer">
               <h2 class="photo-card__title">Bald Mountains</h2>
-              <<button type="button" class="photo-card__like-button" aria-label="Like Button"></button>
+              <button type="button" class="photo-card__like-button" aria-label="Like Button"></button>
             </div>
           </li>
           <li class="photo-card">
@@ -104,16 +104,11 @@
     <footer class="footer">
       <p class="footer__text">&copy; 2021 Around The U.S.</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup_opened">
       <div class="popup__container">
-        <a class="popup__close-button" href="#"
-          ><img
-            class="popup__close-button-image"
-            src="images/close-icon.png"
-            alt="Closing button"
-        /></a>
-        <form class="form">
-          <p class="form__title">Edit profile</p>
+        <button type="button" class="popup__close-button" arial-label="Edit form close button"></button>
+        <form class="form" name="edit-form">
+          <h2 class="form__title">Edit profile</h2>
 
           <input
             class="form__text-input"
