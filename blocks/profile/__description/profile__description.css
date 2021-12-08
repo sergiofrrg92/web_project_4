@@ -4,6 +4,16 @@
   font-weight: normal;
   font-style: normal;
   line-height: 22px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 450px;
+}
+
+@media (max-width: 880px) {
+  .profile__description {
+    max-width: 200px;
+  }
 }
 
 @media (max-width: 584px) {

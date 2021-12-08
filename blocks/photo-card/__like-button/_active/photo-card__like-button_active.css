@@ -1,3 +1,4 @@
 .photo-card__like-button_active {
-  background: url("../../../../images/black-heart_vector.svg");
+  background: url("../../../../images/photo-card__like-button_active.svg");
+  cursor: pointer;
 }

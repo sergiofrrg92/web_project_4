@@ -1,9 +1,10 @@
 .profile__add-button {
-  background: url("../../../images/add_button_vector.svg");
+  background: url("../../../images/profile__add-button.svg");
   background-size: cover;
   min-height: 50px;
   min-width: 150px;
   border: 0;
+  cursor: pointer;
 }
 
 .profile__add-button:hover {
@@ -12,7 +13,7 @@
 
 @media (max-width: 584px) {
   .profile__add-button {
-    background: url("../../../images/add-button_mobile_vector.svg");
+    background: url("../../../images/profile__add-button_mobile.svg");
     margin: 36px 0 0 0;
     min-width: 282px;
   }

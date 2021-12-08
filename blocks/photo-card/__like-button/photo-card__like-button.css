@@ -1,9 +1,10 @@
 .photo-card__like-button {
-  background: url("../../../images/heart_vector.svg");
+  background: url("../../../images/photo-card__like-button.svg");
   min-width: 21px;
   min-height: 19px;
   border: 0;
   background-size: cover;
+  cursor: pointer;
 }
 
 .photo-card__like-button:hover {
