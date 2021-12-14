@@ -40,7 +40,7 @@
       </section>
       <section class="photos">
         <ul class="photos__grid">
-          <li class="photo-card">
+          <!-- <li class="photo-card">
             <img
               class="photo-card__photo"
               src="images/photos__grid/yosemite.png"
@@ -129,7 +129,7 @@
                 aria-label="Like Button"
               ></button>
             </div>
-          </li>
+          </li> -->
         </ul>
       </section>
     </main>
@@ -162,6 +162,19 @@
         </form>
       </div>
     </div>
+    <template id="photo-card__template">
+      <li class="photo-card">
+        <img class="photo-card__photo" src="" alt="" />
+        <div class="photo-card__footer">
+          <h2 class="photo-card__title"></h2>
+          <button
+            type="button"
+            class="photo-card__like-button"
+            aria-label="Like Button"
+          ></button>
+        </div>
+      </li>
+    </template>
     <script src="scripts/index.js"></script>
   </body>
 </html>
