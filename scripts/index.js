@@ -34,6 +34,18 @@ const initialCards = [
   {
     name: "Lago di Braies",
     link: "https://code.s3.yandex.net/web-code/lago.jpg"
+  },
+  {
+    name: "St. Nicholas of Bujaruelo",
+    link: "https://images.unsplash.com/photo-1618982469792-9165dfb75f1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+  },
+  {
+    name: "Glendalough",
+    link: "https://images.unsplash.com/photo-1571092459778-976489055d5c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+  },
+  {
+    name: "Helsinki",
+    link: "https://images.unsplash.com/photo-1522885147691-06d859633fb8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
   }
 ];
 
