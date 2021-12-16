@@ -8,7 +8,6 @@ const closeButtonEdit = popupEdit.querySelector('.popup__close-button');
 const closeButtonAdd = popupAdd.querySelector('.popup__close-button');
 const closeButtonPhoto = popupPhoto.querySelector('.popup__close-button');
 
-
 //Forms
 const formEdit = popupEdit.querySelector('.form');
 const nameInput = formEdit.querySelector('.form__text-input[name="name"]');
