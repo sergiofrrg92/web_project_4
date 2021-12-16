@@ -1,17 +1,4 @@
 .popup-photo__photo {
-  max-height: 540px;
-}
-
-@media (max-width: 880px) {
-  .popup-photo__photo {
-    max-height: 400px;
-    max-width: 600px;
-  }
-}
-
-@media (max-width: 584px) {
-  .popup-photo__photo {
-    max-height: 299px;
-    max-width: 240px;
-  }
+  max-height: 75vh;
+  max-width: 75vw;
 }
