@@ -68,6 +68,9 @@ function loadCard(name, link){
     let likeButton = photoCard.querySelector(".photo-card__like-button");
     addLikeEventListener(likeButton);
 
+    let deleteButton = photoCard.querySelector(".photo-card__delete-button");
+    addDeleteEventListener(deleteButton);
+
     photoGrid.prepend(photoCard);
 }
 
@@ -112,6 +115,12 @@ function handleProfileFormSubmit(evt){
 function addLikeEventListener(likeButton){
   likeButton.addEventListener("click", function(evt){
     evt.target.classList.toggle('photo-card__like-button_active');
+  });
+}
+
+function addDeleteEventListener(deleteButton){
+  deleteButton.addEventListener("click", function(evt){
+    evt.target.closest('.photo-card').remove();
   });
 }
 
