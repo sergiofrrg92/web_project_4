@@ -65,7 +65,10 @@ function loadCard(name, link){
     photoCard.querySelector(".photo-card__photo").setAttribute("alt", name);
     photoCard.querySelector(".photo-card__title").textContent = name;
 
-    photoGrid.append(photoCard);
+    let likeButton = photoCard.querySelector(".photo-card__like-button");
+    addLikeEventListener(likeButton);
+
+    photoGrid.prepend(photoCard);
 }
 
 function loadCards(){
@@ -106,6 +109,12 @@ function handleProfileFormSubmit(evt){
   hideEditPopUp();
 }
 
+function addLikeEventListener(likeButton){
+  likeButton.addEventListener("click", function(evt){
+    evt.target.classList.toggle('photo-card__like-button_active');
+  });
+}
+
 loadCards();
 
 
@@ -115,3 +124,7 @@ formAdd.addEventListener("submit", handleNewPlaceFormSubmit);
 editButton.addEventListener("click", openEditPopUp);
 closeButtonEdit.addEventListener("click", hideEditPopUp);
 formEdit.addEventListener("submit", handleProfileFormSubmit);
+
+
+
+
