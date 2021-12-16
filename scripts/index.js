@@ -149,6 +149,7 @@ function addOpenPhotoEventListener(photo){
 
     photo.src = photoCard.querySelector('.photo-card__photo').src;
     title.textContent = photoCard.querySelector('.photo-card__title').textContent;
+    photo.setAttribute("alt", photoCard.querySelector('.photo-card__title').textContent);
 
     popupPhoto.classList.add("popup_opened");
   });
