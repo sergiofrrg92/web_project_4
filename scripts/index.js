@@ -1,8 +1,15 @@
+//Popups
 const popupEdit = document.querySelector('.popup-edit');
 const popupAdd = document.querySelector('.popup-add');
+const popupPhoto = document.querySelector('.popup-photo');
+
+//Close buttons
 const closeButtonEdit = popupEdit.querySelector('.popup__close-button');
 const closeButtonAdd = popupAdd.querySelector('.popup__close-button');
+const closeButtonPhoto = popupPhoto.querySelector('.popup__close-button');
 
+
+//Forms
 const formEdit = popupEdit.querySelector('.form');
 const nameInput = formEdit.querySelector('.form__text-input[name="name"]');
 const descriptionInput = formEdit.querySelector('.form__text-input[name="about-me"]');
@@ -17,6 +24,7 @@ const profileName = profile.querySelector('.profile__name');
 const profileDescription = profile.querySelector('.profile__description');
 const addButton = profile.querySelector(".profile__add-button");
 
+//Cards
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -61,15 +69,20 @@ function loadCard(name, link){
   const photoCardTemplate = document.querySelector("#photo-card__template").content;
   const photoGrid = document.querySelector(".photos__grid");
   const photoCard = photoCardTemplate.querySelector(".photo-card").cloneNode(true);
-    photoCard.querySelector(".photo-card__photo").src=link;
-    photoCard.querySelector(".photo-card__photo").setAttribute("alt", name);
-    photoCard.querySelector(".photo-card__title").textContent = name;
+    const photo = photoCard.querySelector('.photo-card__photo');
+    const photoTitle = photoCard.querySelector(".photo-card__title");
+    photo.src=link;
+    photo.setAttribute("alt", name);
+
+    photoTitle.textContent = name;
 
     let likeButton = photoCard.querySelector(".photo-card__like-button");
     addLikeEventListener(likeButton);
 
     let deleteButton = photoCard.querySelector(".photo-card__delete-button");
     addDeleteEventListener(deleteButton);
+
+    addOpenPhotoEventListener(photo);
 
     photoGrid.prepend(photoCard);
 }
@@ -99,6 +112,10 @@ function hideAddPopUp(){
   popupAdd.classList.remove("popup_opened");
 }
 
+function hidePhotoPopUp(){
+  popupPhoto.classList.remove("popup_opened");
+}
+
 function handleNewPlaceFormSubmit(evt){
   evt.preventDefault();
   hideAddPopUp();
@@ -124,15 +141,32 @@ function addDeleteEventListener(deleteButton){
   });
 }
 
+function addOpenPhotoEventListener(photo){
+  photo.addEventListener("click", function(evt){
+    const photoCard = evt.target.closest('.photo-card');
+    const photoContainer = popupPhoto.querySelector('.popup-photo__container');
+    const photo = photoContainer.querySelector('.popup-photo__photo');
+    const title = photoContainer.querySelector('.popup-photo__title');
+
+    photo.src = photoCard.querySelector('.photo-card__photo').src;
+    title.textContent = photoCard.querySelector('.photo-card__title').textContent;
+
+    popupPhoto.classList.add("popup_opened");
+  });
+}
+
 loadCards();
 
 
 addButton.addEventListener("click", openAddPopUp);
 closeButtonAdd.addEventListener("click", hideAddPopUp);
 formAdd.addEventListener("submit", handleNewPlaceFormSubmit);
+
 editButton.addEventListener("click", openEditPopUp);
 closeButtonEdit.addEventListener("click", hideEditPopUp);
 formEdit.addEventListener("submit", handleProfileFormSubmit);
+
+closeButtonPhoto.addEventListener("click", hidePhotoPopUp);
 
 
 
