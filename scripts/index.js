@@ -1,3 +1,9 @@
+/** Constant Declaration */
+const EDIT_POPUP = "edit";
+const ADD_POPUP = "add";
+const PHOTO_POPUP = "photo";
+
+
 /** Declaration of the Popups */
 const popupEdit = document.querySelector('.popup-edit');
 const popupAdd = document.querySelector('.popup-add');
@@ -72,15 +78,16 @@ const initialCards = [
  * @param {string} name - The title of the card
  * @param {string} link - The link of the photo
  */
-function createCard(name, link){
+function createCard(card) {
   const photoCard = photoCardTemplate.querySelector(".photo-card").cloneNode(true);
 
   const photo = photoCard.querySelector('.photo-card__photo');
   const photoTitle = photoCard.querySelector(".photo-card__title");
-  photo.src = link;
-  photo.setAttribute("alt", name);
 
-  photoTitle.textContent = name;
+  photo.src = card.link;
+  photo.setAttribute("alt", card.name);
+
+  photoTitle.textContent = card.name;
 
   const likeButton = photoCard.querySelector(".photo-card__like-button");
   addLikeEventListener(likeButton);
@@ -90,92 +97,147 @@ function createCard(name, link){
 
   addOpenPhotoEventListener(photo);
 
+  return photoCard;
+
+}
+
+/**
+ * Renders the card created by createCard()
+ * @param {string} name - The title of the card
+ * @param {string} link - The link of the photo
+ */
+function renderCard(card) {
+  const photoCard = createCard(card);
   photoGrid.prepend(photoCard);
 }
 
 /**
  * Initially loads all the cards in the initialCards list
  */
-function loadCards(){
+function loadCards() {
   initialCards.forEach((card) => {
-    createCard(card.name, card.link);
+    renderCard(card);
   });
 }
 
-function openEditPopUp(){
-  nameInput.value = profileName.textContent;
-  descriptionInput.value = profileDescription.textContent;
-  popupEdit.classList.add("popup_opened");
+function openPopUp(evt, popup) {
+
+  switch (popup) {
+    case EDIT_POPUP:
+      nameInput.value = profileName.textContent;
+      descriptionInput.value = profileDescription.textContent;
+      popupEdit.classList.add("popup_opened");
+      break;
+
+    case ADD_POPUP:
+      popupAdd.classList.add("popup_opened");
+      break;
+
+    case PHOTO_POPUP:
+      handleOpenPhotoEvent(evt);
+      popupPhoto.classList.add("popup_opened");
+      break;
+
+    default:
+      console.log("Not a known type of popup type");
+      break;
+  }
+
 }
 
-function hideEditPopUp(){
-  popupEdit.classList.remove("popup_opened");
+function hidePopUp(popup) {
+  switch (popup){
+    case EDIT_POPUP:
+      popupEdit.classList.remove("popup_opened");
+      break;
+
+    case ADD_POPUP:
+      popupAdd.classList.remove("popup_opened");
+      break;
+
+    case PHOTO_POPUP:
+      popupPhoto.classList.remove("popup_opened");
+      break;
+
+    default:
+      console.log("Not a known type of popup type");
+      break;
+  }
 }
 
-function openAddPopUp(){
-  popupAdd.classList.add("popup_opened");
-}
-
-function hideAddPopUp(){
-  popupAdd.classList.remove("popup_opened");
-}
-
-function hidePhotoPopUp(){
-  popupPhoto.classList.remove("popup_opened");
-}
-
-function handleNewPlaceFormSubmit(evt){
+function handleNewPlaceFormSubmit(evt) {
   evt.preventDefault();
-  hideAddPopUp();
-  createCard(titleInput.value, linkInput.value);
+  hidePopUp(ADD_POPUP);
+  const card = {
+    name: titleInput.value,
+    link: linkInput.value
+  };
+  renderCard(card);
+  formAdd.reset();
 }
 
-function handleProfileFormSubmit(evt){
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileDescription.textContent = descriptionInput.value;
-  hideEditPopUp();
+  hidePopUp(EDIT_POPUP);
 }
 
-function addLikeEventListener(likeButton){
+function addLikeEventListener(likeButton) {
   likeButton.addEventListener("click", function(evt){
     evt.target.classList.toggle('photo-card__like-button_active');
   });
 }
 
-function addDeleteEventListener(deleteButton){
+function addDeleteEventListener(deleteButton) {
   deleteButton.addEventListener("click", function(evt){
     evt.target.closest('.photo-card').remove();
   });
 }
 
-function addOpenPhotoEventListener(photo){
-  photo.addEventListener("click", function(evt){
-    const photoCard = evt.target.closest('.photo-card');
-    const photoContainer = popupPhoto.querySelector('.popup-photo__container');
-    const photo = photoContainer.querySelector('.popup-photo__photo');
-    const title = photoContainer.querySelector('.popup-photo__title');
+function handleOpenPhotoEvent(evt) {
+  const photoCard = evt.target.closest('.photo-card');
+  const photoContainer = popupPhoto.querySelector('.popup-photo__container');
+  const photo = photoContainer.querySelector('.popup-photo__photo');
+  const title = photoContainer.querySelector('.popup-photo__title');
 
-    photo.src = photoCard.querySelector('.photo-card__photo').src;
-    title.textContent = photoCard.querySelector('.photo-card__title').textContent;
-    photo.setAttribute("alt", photoCard.querySelector('.photo-card__title').textContent);
+  photo.src = photoCard.querySelector('.photo-card__photo').src;
+  title.textContent = photoCard.querySelector('.photo-card__title').textContent;
+  photo.setAttribute("alt", photoCard.querySelector('.photo-card__title').textContent);
+}
 
-    popupPhoto.classList.add("popup_opened");
+function addOpenPhotoEventListener(photo) {
+  photo.addEventListener("click", (evt) => {
+    openPopUp(evt, PHOTO_POPUP);
   });
 }
 
 loadCards();
 
 /** Declaration of the event listeners */
-addButton.addEventListener("click", openAddPopUp);
-closeButtonAdd.addEventListener("click", hideAddPopUp);
+addButton.addEventListener("click", (evt) => {
+  openPopUp(evt, ADD_POPUP);
+});
+
+closeButtonAdd.addEventListener("click", () => {
+  hidePopUp(ADD_POPUP);
+});
+
 formAdd.addEventListener("submit", handleNewPlaceFormSubmit);
 
-editButton.addEventListener("click", openEditPopUp);
-closeButtonEdit.addEventListener("click", hideEditPopUp);
+editButton.addEventListener("click", (evt) => {
+  openPopUp(evt, EDIT_POPUP);
+});
+
+closeButtonEdit.addEventListener("click", () => {
+  hidePopUp(EDIT_POPUP);
+});
+
 formEdit.addEventListener("submit", handleProfileFormSubmit);
 
-closeButtonPhoto.addEventListener("click", hidePhotoPopUp);
+closeButtonPhoto.addEventListener("click", () => {
+  hidePopUp(PHOTO_POPUP);
+});
 
 
 
