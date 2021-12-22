@@ -114,11 +114,19 @@ function loadCards() {
   });
 }
 
+/**
+ * Opens the popup received
+ * @param {*} popup
+ */
 function openPopUp(popup) {
   popup.classList.add("popup_opened");
 
 }
 
+/**
+ * Closes the popup received
+ * @param {*} popup
+ */
 function hidePopUp(popup) {
   popup.classList.remove("popup_opened");
 }
