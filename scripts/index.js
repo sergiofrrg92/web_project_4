@@ -1,9 +1,3 @@
-/** Constant Declaration */
-const EDIT_POPUP = "edit";
-const ADD_POPUP = "add";
-const PHOTO_POPUP = "photo";
-
-
 /** Declaration of the Popups */
 const popupEdit = document.querySelector('.popup-edit');
 const popupAdd = document.querySelector('.popup-add');
@@ -74,9 +68,9 @@ const initialCards = [
 ];
 
 /**
- * Creates one single photo card with a specified name and link
- * @param {string} name - The title of the card
- * @param {string} link - The link of the photo
+ * Creates one single photo card with specified card information (object)
+ * @param {object} card
+ * @returns photoCard to be rendered
  */
 function createCard(card) {
   const photoCard = photoCardTemplate.querySelector(".photo-card").cloneNode(true);
@@ -120,54 +114,18 @@ function loadCards() {
   });
 }
 
-function openPopUp(evt, popup) {
-
-  switch (popup) {
-    case EDIT_POPUP:
-      nameInput.value = profileName.textContent;
-      descriptionInput.value = profileDescription.textContent;
-      popupEdit.classList.add("popup_opened");
-      break;
-
-    case ADD_POPUP:
-      popupAdd.classList.add("popup_opened");
-      break;
-
-    case PHOTO_POPUP:
-      handleOpenPhotoEvent(evt);
-      popupPhoto.classList.add("popup_opened");
-      break;
-
-    default:
-      console.log("Not a known type of popup type");
-      break;
-  }
+function openPopUp(popup) {
+  popup.classList.add("popup_opened");
 
 }
 
 function hidePopUp(popup) {
-  switch (popup){
-    case EDIT_POPUP:
-      popupEdit.classList.remove("popup_opened");
-      break;
-
-    case ADD_POPUP:
-      popupAdd.classList.remove("popup_opened");
-      break;
-
-    case PHOTO_POPUP:
-      popupPhoto.classList.remove("popup_opened");
-      break;
-
-    default:
-      console.log("Not a known type of popup type");
-      break;
-  }
+  popup.classList.remove("popup_opened");
 }
 
 function handleNewPlaceFormSubmit(evt) {
   evt.preventDefault();
-  hidePopUp(ADD_POPUP);
+  hidePopUp(popupAdd);
   const card = {
     name: titleInput.value,
     link: linkInput.value
@@ -180,11 +138,11 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileDescription.textContent = descriptionInput.value;
-  hidePopUp(EDIT_POPUP);
+  hidePopUp(popupEdit);
 }
 
 function addLikeEventListener(likeButton) {
-  likeButton.addEventListener("click", function(evt){
+  likeButton.addEventListener("click", function(evt) {
     evt.target.classList.toggle('photo-card__like-button_active');
   });
 }
@@ -208,35 +166,44 @@ function handleOpenPhotoEvent(evt) {
 
 function addOpenPhotoEventListener(photo) {
   photo.addEventListener("click", (evt) => {
-    openPopUp(evt, PHOTO_POPUP);
+    handleOpenPhotoEvent(evt);
+    openPopUp(popupPhoto);
   });
 }
 
 loadCards();
 
 /** Declaration of the event listeners */
-addButton.addEventListener("click", (evt) => {
-  openPopUp(evt, ADD_POPUP);
+
+/** Add Popup and Form */
+addButton.addEventListener("click", () => {
+  openPopUp(popupAdd);
 });
 
 closeButtonAdd.addEventListener("click", () => {
-  hidePopUp(ADD_POPUP);
+  hidePopUp(popupAdd);
 });
 
 formAdd.addEventListener("submit", handleNewPlaceFormSubmit);
 
-editButton.addEventListener("click", (evt) => {
-  openPopUp(evt, EDIT_POPUP);
+
+/** Edit Popup and Form */
+editButton.addEventListener("click", () => {
+  nameInput.value = profileName.textContent;
+  descriptionInput.value = profileDescription.textContent;
+  openPopUp(popupEdit);
 });
 
 closeButtonEdit.addEventListener("click", () => {
-  hidePopUp(EDIT_POPUP);
+  hidePopUp(popupEdit);
 });
 
 formEdit.addEventListener("submit", handleProfileFormSubmit);
 
+/** Photo popup */
+
 closeButtonPhoto.addEventListener("click", () => {
-  hidePopUp(PHOTO_POPUP);
+  hidePopUp(popupPhoto);
 });
 
 
