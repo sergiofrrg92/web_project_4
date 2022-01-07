@@ -1,0 +1,12 @@
+.form__input-error {
+  visibility: hidden;
+  font-size: 12px;
+  line-height: 15px;
+  font-style: normal;
+  font-weight: normal;
+  color: #ff0000;
+}
+
+.form__input-error:first-of-type {
+  margin: 0 0 13px 0;
+}

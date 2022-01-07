@@ -56,19 +56,27 @@
           <h2 class="form__title">Edit profile</h2>
 
           <input
+            id="name-input"
             class="form__text-input"
             type="text"
             name="name"
             placeholder="Name"
             required
+            minlength="2"
+            maxlength="40"
           />
+          <span class="form__input-error name-input-error"></span>
           <input
+            id="about_me-input"
             class="form__text-input"
             type="text"
             name="about-me"
             placeholder="About me"
             required
+            minlength="2"
+            maxlength="40"
           />
+          <span class="form__input-error about_me-input-error"></span>
           <button class="form__submit-button form__save-button" type="submit">
             Save
           </button>
@@ -87,19 +95,27 @@
           <h2 class="form__title">New Place</h2>
 
           <input
+            id="title-input"
             class="form__text-input"
             type="text"
             name="title"
             placeholder="Title"
             required
+            minlength="2"
+            maxlength="40"
           />
+          <span class="form__input-error title-input-error"></span>
           <input
+            id="link-input"
             class="form__text-input"
             type="text"
             name="image-link"
             placeholder="Image link"
             required
+            minlength="2"
+            maxlength="40"
           />
+          <span class="form__input-error link-input-error"></span>
           <button class="form__submit-button form__save-button" type="submit">
             Create
           </button>
@@ -142,5 +158,6 @@
       </li>
     </template>
     <script src="scripts/index.js"></script>
+    <script src="scripts/validation.js"></script>
   </body>
 </html>
