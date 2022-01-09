@@ -45,6 +45,15 @@ function toggleButtonState(form, inputList, buttonElement) {
   }
 };
 
+function resetValidation(formElement){
+  const inputList = Array.from(formElement.querySelectorAll(formObject.inputSelector));
+  const buttonElement = formElement.querySelector(formObject.submitButtonSelector);
+  inputList.forEach((inputElement) => {
+    checkInputValidity(formObject, formElement, inputElement);
+    toggleButtonState(formObject, inputList, buttonElement);
+  });
+}
+
 function setEventListeners (form, formElement) {
   const inputList = Array.from(formElement.querySelectorAll(form.inputSelector));
   const buttonElement = formElement.querySelector(form.submitButtonSelector);
@@ -70,3 +79,5 @@ function enableValidation(form) {
 };
 
 enableValidation(formObject);
+
+export {resetValidation};

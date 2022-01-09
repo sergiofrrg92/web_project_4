@@ -1,3 +1,5 @@
+import { resetValidation } from "./validation.js";
+
 /** Declaration of the Popups */
 const popups = document.querySelectorAll('.popup');
 const popupEdit = document.querySelector('.popup-edit');
@@ -120,6 +122,7 @@ function loadCards() {
  * @param {*} popup
  */
 function openPopUp(popup) {
+  resetValidation(popup.querySelector('.form'));
   popup.classList.add("popup_opened");
 
 }
