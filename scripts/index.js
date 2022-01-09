@@ -1,4 +1,5 @@
 /** Declaration of the Popups */
+const popups = document.querySelectorAll('.popup');
 const popupEdit = document.querySelector('.popup-edit');
 const popupAdd = document.querySelector('.popup-add');
 const popupPhoto = document.querySelector('.popup-photo');
@@ -179,6 +180,18 @@ function addOpenPhotoEventListener(photo) {
   });
 }
 
+/**
+ * Adds event listeners to popup overlays to close on click.
+ */
+function addClosePopupEventListenerToOverlay(){
+  const popupList = Array.from(popups);
+  popupList.forEach((popup) => {
+    popup.addEventListener("click", () => {
+      hidePopUp(popup);
+    });
+  });
+}
+
 loadCards();
 
 /** Declaration of the event listeners */
@@ -213,6 +226,8 @@ formEdit.addEventListener("submit", handleProfileFormSubmit);
 closeButtonPhoto.addEventListener("click", () => {
   hidePopUp(popupPhoto);
 });
+
+addClosePopupEventListenerToOverlay();
 
 
 
