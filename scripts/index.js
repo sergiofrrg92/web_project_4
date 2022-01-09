@@ -186,8 +186,19 @@ function addOpenPhotoEventListener(photo) {
 function addClosePopupEventListenerToOverlay(){
   const popupList = Array.from(popups);
   popupList.forEach((popup) => {
-    popup.addEventListener("click", () => {
-      hidePopUp(popup);
+    popup.addEventListener("click", (evt) => {
+      console.log(Array.from(evt.target.classList));
+      if(evt.target.classList.contains("popup")){
+        hidePopUp(popup);
+      }
+    });
+    document.addEventListener("keydown", (evt) => {
+      const openedPopup = document.querySelector('.popup_opened')
+      if(evt.key == "Escape" && openedPopup){
+        hidePopUp(openedPopup);
+      }
+
+      //hidePopUp(popup);
     });
   });
 }
