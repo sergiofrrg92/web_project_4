@@ -82,7 +82,7 @@ function createCard(card) {
   const photoTitle = photoCard.querySelector(".photo-card__title");
 
   photo.src = card.link;
-  photo.setAttribute("alt", card.name);
+  photo.alt = card.name;
 
   photoTitle.textContent = card.name;
 
@@ -243,7 +243,6 @@ closeButtonPhoto.addEventListener("click", () => {
   hidePopUp(popupPhoto);
 });
 
-//addClosePopupEventListenerToOverlay();
 
 
 

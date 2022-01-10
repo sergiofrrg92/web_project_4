@@ -48,7 +48,7 @@ function resetValidation(formElement){
   const inputList = Array.from(formElement.querySelectorAll(validationConfig.inputSelector));
   const buttonElement = formElement.querySelector(validationConfig.submitButtonSelector);
   inputList.forEach((inputElement) => {
-    checkInputValidity(validationConfig, formElement, inputElement);
+    hideInputError(validationConfig, formElement, inputElement);
     toggleButtonState(validationConfig, inputList, buttonElement);
   });
 }
