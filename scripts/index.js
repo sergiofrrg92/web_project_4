@@ -118,12 +118,29 @@ function loadCards() {
 }
 
 /**
+ * Adds event listeners to popup overlays to close on click.
+ */
+ function handleClickOnOverlayEvent(evt){
+  if(evt.target.classList.contains("popup")){
+    hidePopUp(evt.target);
+  }
+}
+
+function handleEscapeKeyDown(evt){
+  const openedPopup = document.querySelector('.popup_opened');
+  if(evt.key == "Escape" && openedPopup){
+    hidePopUp(openedPopup);
+  }
+}
+
+/**
  * Opens the popup received
- * @param {*} popup
+ * @param {object} popup
  */
 function openPopUp(popup) {
-  resetValidation(popup.querySelector('.form'));
   popup.classList.add("popup_opened");
+  document.addEventListener("click", handleClickOnOverlayEvent);
+  document.addEventListener("keydown", handleEscapeKeyDown);
 
 }
 
@@ -133,6 +150,8 @@ function openPopUp(popup) {
  */
 function hidePopUp(popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener("click", handleClickOnOverlayEvent);
+  document.removeEventListener("keydown", handleEscapeKeyDown);
 }
 
 function handleNewPlaceFormSubmit(evt) {
@@ -153,16 +172,20 @@ function handleProfileFormSubmit(evt) {
   hidePopUp(popupEdit);
 }
 
+function handleLikeEvent(evt) {
+  evt.target.classList.toggle('photo-card__like-button_active');
+}
+
 function addLikeEventListener(likeButton) {
-  likeButton.addEventListener("click", function(evt) {
-    evt.target.classList.toggle('photo-card__like-button_active');
-  });
+  likeButton.addEventListener("click", handleLikeEvent);
+}
+
+function handleDeletePhotoEvent(evt) {
+  evt.target.closest('.photo-card').remove();
 }
 
 function addDeleteEventListener(deleteButton) {
-  deleteButton.addEventListener("click", function(evt){
-    evt.target.closest('.photo-card').remove();
-  });
+  deleteButton.addEventListener("click", handleDeletePhotoEvent);
 }
 
 function handleOpenPhotoEvent(evt) {
@@ -173,36 +196,13 @@ function handleOpenPhotoEvent(evt) {
 
   photo.src = photoCard.querySelector('.photo-card__photo').src;
   title.textContent = photoCard.querySelector('.photo-card__title').textContent;
-  photo.setAttribute("alt", photoCard.querySelector('.photo-card__title').textContent);
+  photo.alt = photoCard.querySelector('.photo-card__title').textContent;
 }
 
 function addOpenPhotoEventListener(photo) {
   photo.addEventListener("click", (evt) => {
     handleOpenPhotoEvent(evt);
     openPopUp(popupPhoto);
-  });
-}
-
-/**
- * Adds event listeners to popup overlays to close on click.
- */
-function addClosePopupEventListenerToOverlay(){
-  const popupList = Array.from(popups);
-  popupList.forEach((popup) => {
-    popup.addEventListener("click", (evt) => {
-      console.log(Array.from(evt.target.classList));
-      if(evt.target.classList.contains("popup")){
-        hidePopUp(popup);
-      }
-    });
-    document.addEventListener("keydown", (evt) => {
-      const openedPopup = document.querySelector('.popup_opened')
-      if(evt.key == "Escape" && openedPopup){
-        hidePopUp(openedPopup);
-      }
-
-      //hidePopUp(popup);
-    });
   });
 }
 
@@ -213,6 +213,7 @@ loadCards();
 /** Add Popup and Form */
 addButton.addEventListener("click", () => {
   openPopUp(popupAdd);
+  resetValidation(popupAdd.querySelector('.form'));
 });
 
 closeButtonAdd.addEventListener("click", () => {
@@ -227,6 +228,7 @@ editButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   descriptionInput.value = profileDescription.textContent;
   openPopUp(popupEdit);
+  resetValidation(popupEdit.querySelector('.form'));
 });
 
 closeButtonEdit.addEventListener("click", () => {
@@ -241,7 +243,7 @@ closeButtonPhoto.addEventListener("click", () => {
   hidePopUp(popupPhoto);
 });
 
-addClosePopupEventListenerToOverlay();
+//addClosePopupEventListenerToOverlay();
 
 
 
