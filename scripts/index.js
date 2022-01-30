@@ -1,5 +1,6 @@
 import { resetValidation } from "./validation.js";
 import { Card } from "./Card.js";
+import { openPopUp, hidePopUp } from "./utils.js";
 
 /** Declaration of the Popups */
 const popups = document.querySelectorAll('.popup');
@@ -108,18 +109,6 @@ function handleProfileFormSubmit(evt) {
   profileName.textContent = nameInput.value;
   profileDescription.textContent = descriptionInput.value;
   hidePopUp(popupEdit);
-}
-
-
-function handleOpenPhotoEvent(evt) {
-  const photoCard = evt.target.closest('.photo-card');
-  const photoContainer = popupPhoto.querySelector('.popup-photo__container');
-  const photo = photoContainer.querySelector('.popup-photo__photo');
-  const title = photoContainer.querySelector('.popup-photo__title');
-
-  photo.src = photoCard.querySelector('.photo-card__photo').src;
-  title.textContent = photoCard.querySelector('.photo-card__title').textContent;
-  photo.alt = photoCard.querySelector('.photo-card__title').textContent;
 }
 
 

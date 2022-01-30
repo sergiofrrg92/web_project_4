@@ -37,4 +37,4 @@ function hidePopUp(popup) {
   }
 
 
-export {openPopUp};
+export {openPopUp, hidePopUp};
