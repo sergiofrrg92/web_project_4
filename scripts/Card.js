@@ -1,8 +1,12 @@
+import {openPopUp} from "./utils.js"
+
 class Card {
+
     constructor(cardData, cardSelector) {
-        this._text = cardData.text;
-        this._image = cardData.image;
+        this._name = cardData.name;
+        this._image = cardData.link;
         this._cardSelector = cardSelector;
+        this._popupPhoto = document.querySelector('.popup-photo');
     }
 
         /**
@@ -10,52 +14,63 @@ class Card {
      * @param {object} card
      * @returns photoCard to be rendered
      */
-    _createCard(card) {
-        const photoCard = photoCardTemplate.querySelector(".photo-card").cloneNode(true);
+    createCard() {
+        const photoCard = this._cardSelector.querySelector(".photo-card").cloneNode(true);
     
         const photo = photoCard.querySelector('.photo-card__photo');
         const photoTitle = photoCard.querySelector(".photo-card__title");
     
-        photo.src = card.link;
-        photo.alt = card.name;
-    
-        photoTitle.textContent = card.name;
+        photo.src = this._image;
+        photo.alt = this._name;
+        photoTitle.textContent = this._name;
     
         const likeButton = photoCard.querySelector(".photo-card__like-button");
-        addLikeEventListener(likeButton);
+        this._addLikeEventListener(likeButton);
     
         const deleteButton = photoCard.querySelector(".photo-card__delete-button");
-        addDeleteEventListener(deleteButton);
+        this._addDeleteEventListener(deleteButton);
     
-        addOpenPhotoEventListener(photo);
+        this._addOpenPhotoEventListener(photo);
     
         return photoCard;
     
     }
 
-    addLikeEventListener(likeButton) {
-        likeButton.addEventListener("click", handleLikeEvent);
+    _addLikeEventListener(likeButton) {
+        likeButton.addEventListener("click", this._handleLikeEvent);
     }
 
-    addDeleteEventListener(deleteButton) {
-        deleteButton.addEventListener("click", handleDeletePhotoEvent);
+    _handleLikeEvent(evt) {
+        evt.target.classList.toggle('photo-card__like-button_active');
+      }
+
+    _addDeleteEventListener(deleteButton) {
+        deleteButton.addEventListener("click", this._handleDeletePhotoEvent);
     }
 
-    addOpenPhotoEventListener(photo) {
+    _handleDeletePhotoEvent(evt) {
+        evt.target.closest('.photo-card').remove();
+      }
+
+    _addOpenPhotoEventListener(photo) {
         photo.addEventListener("click", (evt) => {
-          handleOpenPhotoEvent(evt);
-          openPopUp(popupPhoto);
+          this._handleOpenPhotoEvent(evt);
+          openPopUp(this._popupPhoto);
         });
+    }
+
+    _handleOpenPhotoEvent(evt) {
+        const photoCard = evt.target.closest('.photo-card');
+        const photoContainer = this._popupPhoto.querySelector('.popup-photo__container');
+        const photo = photoContainer.querySelector('.popup-photo__photo');
+        const title = photoContainer.querySelector('.popup-photo__title');
+      
+        photo.src = photoCard.querySelector('.photo-card__photo').src;
+        title.textContent = photoCard.querySelector('.photo-card__title').textContent;
+        photo.alt = photoCard.querySelector('.photo-card__title').textContent;
       }
     
-    /**
-     * Renders the card created by createCard()
-     * @param {string} name - The title of the card
-     * @param {string} link - The link of the photo
-     */
-    renderCard(card) {
-        const photoCard = this._createCard(card);
-        photoGrid.prepend(photoCard);
-    }
 
 }
+
+export {Card}

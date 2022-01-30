@@ -1,4 +1,5 @@
 import { resetValidation } from "./validation.js";
+import { Card } from "./Card.js";
 
 /** Declaration of the Popups */
 const popups = document.querySelectorAll('.popup');
@@ -70,33 +71,6 @@ const initialCards = [
   }*/
 ];
 
-/**
- * Creates one single photo card with specified card information (object)
- * @param {object} card
- * @returns photoCard to be rendered
- */
-function createCard(card) {
-  const photoCard = photoCardTemplate.querySelector(".photo-card").cloneNode(true);
-
-  const photo = photoCard.querySelector('.photo-card__photo');
-  const photoTitle = photoCard.querySelector(".photo-card__title");
-
-  photo.src = card.link;
-  photo.alt = card.name;
-
-  photoTitle.textContent = card.name;
-
-  const likeButton = photoCard.querySelector(".photo-card__like-button");
-  addLikeEventListener(likeButton);
-
-  const deleteButton = photoCard.querySelector(".photo-card__delete-button");
-  addDeleteEventListener(deleteButton);
-
-  addOpenPhotoEventListener(photo);
-
-  return photoCard;
-
-}
 
 /**
  * Renders the card created by createCard()
@@ -104,7 +78,8 @@ function createCard(card) {
  * @param {string} link - The link of the photo
  */
 function renderCard(card) {
-  const photoCard = createCard(card);
+  const newCard = new Card(card, photoCardTemplate);
+  const photoCard = newCard.createCard();
   photoGrid.prepend(photoCard);
 }
 
@@ -115,43 +90,6 @@ function loadCards() {
   initialCards.forEach((card) => {
     renderCard(card);
   });
-}
-
-/**
- * Adds event listeners to popup overlays to close on click.
- */
- function handleClickOnOverlayEvent(evt){
-  if(evt.target.classList.contains("popup")){
-    hidePopUp(evt.target);
-  }
-}
-
-function handleEscapeKeyDown(evt){
-  const openedPopup = document.querySelector('.popup_opened');
-  if(evt.key == "Escape" && openedPopup){
-    hidePopUp(openedPopup);
-  }
-}
-
-/**
- * Opens the popup received
- * @param {object} popup
- */
-function openPopUp(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("click", handleClickOnOverlayEvent);
-  document.addEventListener("keydown", handleEscapeKeyDown);
-
-}
-
-/**
- * Closes the popup received
- * @param {*} popup
- */
-function hidePopUp(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("click", handleClickOnOverlayEvent);
-  document.removeEventListener("keydown", handleEscapeKeyDown);
 }
 
 function handleNewPlaceFormSubmit(evt) {
@@ -172,21 +110,6 @@ function handleProfileFormSubmit(evt) {
   hidePopUp(popupEdit);
 }
 
-function handleLikeEvent(evt) {
-  evt.target.classList.toggle('photo-card__like-button_active');
-}
-
-function addLikeEventListener(likeButton) {
-  likeButton.addEventListener("click", handleLikeEvent);
-}
-
-function handleDeletePhotoEvent(evt) {
-  evt.target.closest('.photo-card').remove();
-}
-
-function addDeleteEventListener(deleteButton) {
-  deleteButton.addEventListener("click", handleDeletePhotoEvent);
-}
 
 function handleOpenPhotoEvent(evt) {
   const photoCard = evt.target.closest('.photo-card');
@@ -199,12 +122,6 @@ function handleOpenPhotoEvent(evt) {
   photo.alt = photoCard.querySelector('.photo-card__title').textContent;
 }
 
-function addOpenPhotoEventListener(photo) {
-  photo.addEventListener("click", (evt) => {
-    handleOpenPhotoEvent(evt);
-    openPopUp(popupPhoto);
-  });
-}
 
 loadCards();
 
