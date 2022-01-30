@@ -1,4 +1,4 @@
-import { resetValidation } from "./validation.js";
+import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
 import { openPopUp, hidePopUp } from "./utils.js";
 
@@ -72,6 +72,16 @@ const initialCards = [
   }*/
 ];
 
+/** Declaration of the Setting object for card validation */
+const validationConfig = {
+  formSelector: ".form",
+  inputSelector: ".form__text-input",
+  submitButtonSelector: ".form__submit-button",
+  inactiveButtonClass: "form__submit-button_disabled",
+  inputErrorClass: "form__text-input-error_active",
+  errorClass: "form__input-error_visible"
+};
+
 
 /**
  * Renders the card created by createCard()
@@ -114,12 +124,15 @@ function handleProfileFormSubmit(evt) {
 
 loadCards();
 
+const formValidator = new FormValidator(validationConfig, validationConfig.formSelector);
+formValidator.enableValidation();
+
 /** Declaration of the event listeners */
 
 /** Add Popup and Form */
 addButton.addEventListener("click", () => {
   openPopUp(popupAdd);
-  resetValidation(popupAdd.querySelector('.form'));
+  formValidator.resetValidation(popupAdd.querySelector('.form'));
 });
 
 closeButtonAdd.addEventListener("click", () => {
@@ -134,7 +147,7 @@ editButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   descriptionInput.value = profileDescription.textContent;
   openPopUp(popupEdit);
-  resetValidation(popupEdit.querySelector('.form'));
+  formValidator.resetValidation(popupEdit.querySelector('.form'));
 });
 
 closeButtonEdit.addEventListener("click", () => {
