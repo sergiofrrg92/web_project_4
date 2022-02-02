@@ -60,6 +60,8 @@ const initialCards = [
   }
 ];
 
+const forms = [];
+
 /** Declaration of the Setting object for card validation */
 const validationConfig = {
   formSelector: ".form",
@@ -109,18 +111,27 @@ function handleProfileFormSubmit(evt) {
   hidePopUp(popupEdit);
 }
 
+function createFormValidators() {
+  const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
+  formList.forEach((formElement) => {
+    forms.push(new FormValidator(validationConfig, formElement));
+    forms[forms.length - 1].enableValidation();
+  });
+}
+
 
 loadCards();
+createFormValidators();
 
-const formValidator = new FormValidator(validationConfig, validationConfig.formSelector);
-formValidator.enableValidation();
 
 /** Declaration of the event listeners */
 
 /** Add Popup and Form */
 addButton.addEventListener("click", () => {
   openPopUp(popupAdd);
-  formValidator.resetValidation(popupAdd.querySelector('.form'));
+  forms.forEach((formValidator) => {
+    formValidator.resetValidation(popupAdd.querySelector('.form'));
+  });
 });
 
 closeButtonAdd.addEventListener("click", () => {
@@ -135,7 +146,9 @@ editButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   descriptionInput.value = profileDescription.textContent;
   openPopUp(popupEdit);
-  formValidator.resetValidation(popupEdit.querySelector('.form'));
+  forms.forEach((formValidator) => {
+    formValidator.resetValidation(popupEdit.querySelector('.form'));
+  });
 });
 
 closeButtonEdit.addEventListener("click", () => {
