@@ -3,7 +3,6 @@ import { Card } from "./Card.js";
 import { openPopUp, hidePopUp } from "./utils.js";
 
 /** Declaration of the Popups */
-const popups = document.querySelectorAll('.popup');
 const popupEdit = document.querySelector('.popup-edit');
 const popupAdd = document.querySelector('.popup-add');
 const popupPhoto = document.querySelector('.popup-photo');
@@ -14,6 +13,10 @@ const closeButtonAdd = popupAdd.querySelector('.popup__close-button');
 const closeButtonPhoto = popupPhoto.querySelector('.popup__close-button');
 
 /** Declaration of the Forms */
+
+const formEditName = 'edit-form';
+const formAddName = 'add-form';
+
 const formEdit = popupEdit.querySelector('.form');
 const nameInput = formEdit.querySelector('.form__text-input[name="name"]');
 const descriptionInput = formEdit.querySelector('.form__text-input[name="about-me"]');
@@ -60,7 +63,7 @@ const initialCards = [
   }
 ];
 
-const forms = [];
+const forms = new Map();
 
 /** Declaration of the Setting object for card validation */
 const validationConfig = {
@@ -111,17 +114,25 @@ function handleProfileFormSubmit(evt) {
   hidePopUp(popupEdit);
 }
 
-function createFormValidators() {
+/**
+ * Enables validation on all forms. 
+ * Saves the formValidators on a Map for future access
+ */
+function enableFormValidationOnAllForms() {
   const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
   formList.forEach((formElement) => {
-    forms.push(new FormValidator(validationConfig, formElement));
-    forms[forms.length - 1].enableValidation();
+    const formName = formElement.getAttribute("name");
+    const formValidator = new FormValidator(validationConfig, formElement);
+    formValidator.enableValidation();
+    forms.set(formName, formValidator);
   });
 }
 
-
+/**
+ * Loading web page
+ */
 loadCards();
-createFormValidators();
+enableFormValidationOnAllForms();
 
 
 /** Declaration of the event listeners */
@@ -129,9 +140,7 @@ createFormValidators();
 /** Add Popup and Form */
 addButton.addEventListener("click", () => {
   openPopUp(popupAdd);
-  forms.forEach((formValidator) => {
-    formValidator.resetValidation(popupAdd.querySelector('.form'));
-  });
+  forms.get(formAddName).resetValidation();
 });
 
 closeButtonAdd.addEventListener("click", () => {
@@ -146,9 +155,7 @@ editButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   descriptionInput.value = profileDescription.textContent;
   openPopUp(popupEdit);
-  forms.forEach((formValidator) => {
-    formValidator.resetValidation(popupEdit.querySelector('.form'));
-  });
+  forms.get(formEditName).resetValidation();
 });
 
 closeButtonEdit.addEventListener("click", () => {
