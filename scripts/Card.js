@@ -1,14 +1,15 @@
 import {openPopUp} from "./utils.js"
 
-const popupPhoto = '.popup-photo';
+const popupPhoto = document.querySelector('.popup-photo');
+
 
 class Card {
 
-    constructor(cardData, cardSelector) {
+    constructor({ name, link }, cardSelector) {
 
-        [this._name, this._image] = [cardData.name, cardData.link];
+        this._name = name;
+        this._image = link;
         this._cardSelector = cardSelector;
-        this._popupPhoto = document.querySelector(popupPhoto);
     }
 
         /**
@@ -20,29 +21,29 @@ class Card {
         const photoCard = this._createNewPhotoCardElement();
         this._addEventListeners(photoCard);
         this._element = photoCard;
-    
+
         return photoCard;
-    
+
     }
 
     _addEventListeners(photoCard){
 
         const likeButton = photoCard.querySelector(".photo-card__like-button");
         this._addLikeEventListener(likeButton);
-    
+
         const deleteButton = photoCard.querySelector(".photo-card__delete-button");
         this._addDeleteEventListener(deleteButton);
-    
+
         const photo = photoCard.querySelector('.photo-card__photo');
         this._addOpenPhotoEventListener(photo);
     }
 
     _createNewPhotoCardElement(){
         const photoCard = this._cardSelector.querySelector(".photo-card").cloneNode(true);
-    
+
         const photo = photoCard.querySelector('.photo-card__photo');
         const photoTitle = photoCard.querySelector(".photo-card__title");
-    
+
         photo.src = this._image;
         photo.alt = this._name;
         photoTitle.textContent = this._name;
@@ -65,21 +66,20 @@ class Card {
     _addOpenPhotoEventListener(photo) {
         photo.addEventListener("click", (evt) => {
           this._handleOpenPhotoEvent(evt);
-          openPopUp(this._popupPhoto);
+          openPopUp(popupPhoto);
         });
     }
 
     _handleOpenPhotoEvent() {
-        const photoCard = this._element;
-        const photoContainer = this._popupPhoto.querySelector('.popup-photo__container');
+        const photoContainer = popupPhoto.querySelector('.popup-photo__container');
         const photo = photoContainer.querySelector('.popup-photo__photo');
         const title = photoContainer.querySelector('.popup-photo__title');
-      
+
         photo.src = this._image;
         title.textContent = this._name;
         photo.alt = this._name;
       }
-    
+
 
 }
 
