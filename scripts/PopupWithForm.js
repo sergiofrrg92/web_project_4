@@ -1,7 +1,8 @@
 class PopupWithForm extends Popup {
     constructor(popupSelector, submitter) {
-        this._submitter = submitter;
-        super(popupSelector);
+      super(popupSelector);
+      this._submitter = submitter;
+      this._form = this._popup.querySelector('.form');
     }
 
     _getInputValues() {
@@ -16,13 +17,22 @@ class PopupWithForm extends Popup {
     }
 
     setEventListeners() {
-        //TODO LAST THING I DID
-        //add click on close button and submit event handler
+        this._form.addEventListener("submit", this._handleProfileFormSubmit);
+        this._popup.querySelector('.popup__close-button').addEventListener("click", close);
         super.setEventListeners();
     }
 
     close() {
-        //clear values when closing.
+        this._form.reset();
         super.close();
     }
+
+    _handleProfileFormSubmit(evt) {
+      evt.preventDefault();
+      profileName.textContent = nameInput.value;
+      profileDescription.textContent = descriptionInput.value;
+      hidePopUp(popupEdit);
+    }
 }
+
+export { PopupWithForm }
