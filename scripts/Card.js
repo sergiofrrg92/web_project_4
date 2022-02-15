@@ -1,3 +1,4 @@
+import { PopupWithImage } from "./PopupWithImage.js";
 import {openPopUp} from "./utils.js"
 
 const popupPhoto = document.querySelector('.popup-photo');
@@ -66,18 +67,12 @@ class Card {
     _addOpenPhotoEventListener(photo) {
         photo.addEventListener("click", (evt) => {
           this._handleOpenPhotoEvent(evt);
-          openPopUp(popupPhoto);
         });
     }
 
     _handleOpenPhotoEvent() {
-        const photoContainer = popupPhoto.querySelector('.popup-photo__container');
-        const photo = photoContainer.querySelector('.popup-photo__photo');
-        const title = photoContainer.querySelector('.popup-photo__title');
-
-        photo.src = this._image;
-        title.textContent = this._name;
-        photo.alt = this._name;
+        const popup = new PopupWithImage('.popup-photo');
+        popup.open(this._image, this._name);
       }
 
 

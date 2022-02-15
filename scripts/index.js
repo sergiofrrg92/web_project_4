@@ -1,6 +1,7 @@
 import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
 import { openPopUp, hidePopUp } from "./utils.js";
+import { PopupWithForm } from "./PopupWithForm.js";
 
 /** Declaration of the Popups */
 const popupEdit = document.querySelector('.popup-edit');
@@ -121,6 +122,7 @@ function handleProfileFormSubmit(evt) {
 function enableFormValidationOnAllForms() {
   const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
   formList.forEach((formElement) => {
+    //const form = new PopupWithForm();
     const formName = formElement.getAttribute("name");
     const formValidator = new FormValidator(validationConfig, formElement);
     formValidator.enableValidation();
