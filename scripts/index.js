@@ -122,6 +122,7 @@ function handleProfileFormSubmit(evt) {
 function enableFormValidationOnAllForms() {
   const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
   formList.forEach((formElement) => {
+    //TODO how to use this popups here.
     //const form = new PopupWithForm();
     const formName = formElement.getAttribute("name");
     const formValidator = new FormValidator(validationConfig, formElement);
