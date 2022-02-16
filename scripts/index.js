@@ -133,14 +133,14 @@ const addPopup = new PopupWithForm('.popup-add', handleNewPlaceFormSubmit);
 const editPopup = new PopupWithForm('.popup-edit', handleProfileFormSubmit);
 loadCards();
 enableFormValidationOnAllForms();
-editPopup.open();
+//editPopup.open();
 
 
 /** Declaration of the event listeners */
 
 /** Add Popup and Form */
 addButton.addEventListener("click", () => {
-  openPopUp(popupAdd);
+  addPopup.open();
   forms.get(formAddName).resetValidation();
 });
 
