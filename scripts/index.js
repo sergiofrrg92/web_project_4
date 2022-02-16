@@ -105,11 +105,9 @@ function handleNewPlaceFormSubmit() {
   renderCard(card);
 }
 
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
+function handleProfileFormSubmit() {
   profileName.textContent = nameInput.value;
   profileDescription.textContent = descriptionInput.value;
-  hidePopUp(popupEdit);
 }
 
 /**
@@ -130,7 +128,9 @@ function enableFormValidationOnAllForms() {
  * Loading web page
  */
 const addPopup = new PopupWithForm('.popup-add', handleNewPlaceFormSubmit);
+addPopup.setEventListeners();
 const editPopup = new PopupWithForm('.popup-edit', handleProfileFormSubmit);
+editPopup.setEventListeners();
 loadCards();
 enableFormValidationOnAllForms();
 //editPopup.open();
@@ -145,25 +145,23 @@ addButton.addEventListener("click", () => {
 });
 
 closeButtonAdd.addEventListener("click", () => {
-  hidePopUp(popupAdd);
+  addPopup.close();
 });
-
-//formAdd.addEventListener("submit", handleNewPlaceFormSubmit);
 
 
 /** Edit Popup and Form */
 editButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   descriptionInput.value = profileDescription.textContent;
-  openPopUp(popupEdit);
+  editPopup.open();
   forms.get(formEditName).resetValidation();
 });
 
 closeButtonEdit.addEventListener("click", () => {
-  hidePopUp(popupEdit);
+  editPopup.close();
 });
 
-formEdit.addEventListener("submit", handleProfileFormSubmit);
+//formEdit.addEventListener("submit", handleProfileFormSubmit);
 
 /** Photo popup */
 

@@ -5,12 +5,10 @@ class Popup {
 
     open() {
         this._popup.classList.add("popup_opened");
-        this.setEventListeners();
     }
 
     close() {
         this._popup.classList.remove("popup_opened");
-        this.removeEventListeners();
     }
 
     setEventListeners() {
@@ -20,11 +18,6 @@ class Popup {
         document.addEventListener("keydown", (evt) => {
             this._handleEscClose(evt);
         });
-    }
-
-    removeEventListeners() {
-        document.removeEventListener("click", this._handleClickOnOverlayClose);
-        document.removeEventListener("keydown", this._handleEscClose);
     }
 
     _handleEscClose(evt) {
