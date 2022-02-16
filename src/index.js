@@ -100,6 +100,9 @@ function loadCards() {
   });
 }
 
+/**
+ * Handles new place form submit (Sent to popupWithForm)
+ */
 function handleNewPlaceFormSubmit() {
   const card = {
     name: titleInput.value,
@@ -108,15 +111,19 @@ function handleNewPlaceFormSubmit() {
   renderCard(card);
 }
 
+/**
+ * Handles new profile form submit (Sent to popupWithForm)
+ */
 function handleProfileFormSubmit() {
   profileName.textContent = nameInput.value;
   profileDescription.textContent = descriptionInput.value;
 }
 
+/**
+ * Handles open photo on card click (sent to popupWithCard)
+ */
 function handleCardClick() {
-  const popup = new PopupWithImage('.popup-photo');
-  popup.setEventListeners();
-  popup.open(this._image, this._name);
+    photoPopup.open(this._image, this._name);
 }
 
 /**
@@ -133,16 +140,22 @@ function enableFormValidationOnAllForms() {
   });
 }
 
-/**
- * Loading web page
- */
+
+/** Popup loading and event listener setup */
 const addPopup = new PopupWithForm('.popup-add', handleNewPlaceFormSubmit);
 addPopup.setEventListeners();
 const editPopup = new PopupWithForm('.popup-edit', handleProfileFormSubmit);
 editPopup.setEventListeners();
+const photoPopup = new PopupWithImage('.popup-photo');
+photoPopup.setEventListeners();
+
+/**
+ * Loading web page
+ */
 loadCards();
+
+/** Enable Validation */
 enableFormValidationOnAllForms();
-//editPopup.open();
 
 
 /** Declaration of the event listeners */
@@ -173,7 +186,7 @@ closeButtonEdit.addEventListener("click", () => {
 /** Photo popup */
 
 closeButtonPhoto.addEventListener("click", () => {
-  hidePopUp(popupPhoto);
+  photoPopup.close();
 });
 
 
