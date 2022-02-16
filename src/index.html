@@ -9,8 +9,9 @@
   <body class="page">
     <header class="header">
       <img
+        id="logo"
         class="logo"
-        src="images/around_the_US_vector.svg"
+        src="<%=require('./images/around_the_US_vector.svg')%>"
         alt="A logo that says: Around the US"
       />
     </header>
@@ -18,8 +19,9 @@
       <section class="profile">
         <div class="profile__info">
           <img
+            id="jacques-cousteau"
             class="profile__photo"
-            src="images/jacques_cousteau.jpeg"
+            src="<%=require('./images/jacques_cousteau.jpeg')%>"
             alt="A photo of Jacques Cousteau with its famous cutest red hat"
           />
           <div class="profile__text">
@@ -155,6 +157,5 @@
         ></button>
       </li>
     </template>
-    <script type="module" src="scripts/index.js"></script>
   </body>
 </html>

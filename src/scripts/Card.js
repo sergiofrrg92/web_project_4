@@ -6,11 +6,12 @@ const popupPhoto = document.querySelector('.popup-photo');
 
 class Card {
 
-    constructor({ name, link }, cardSelector) {
+    constructor({ name, link }, cardSelector, cardClickHandler) {
 
         this._name = name;
         this._image = link;
         this._cardSelector = cardSelector;
+        this._cardClickHandler = cardClickHandler;
     }
 
         /**
@@ -65,8 +66,8 @@ class Card {
     }
 
     _addOpenPhotoEventListener(photo) {
-        photo.addEventListener("click", (evt) => {
-          this._handleOpenPhotoEvent(evt);
+        photo.addEventListener("click", () => {
+          this._cardClickHandler();
         });
     }
 

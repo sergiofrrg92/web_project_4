@@ -1,7 +1,10 @@
-import { FormValidator } from "./FormValidator.js";
-import { Card } from "./Card.js";
-import { openPopUp, hidePopUp } from "./utils.js";
-import { PopupWithForm } from "./PopupWithForm.js";
+import "./styles/index.css";
+
+import { FormValidator } from "./scripts/FormValidator.js";
+import { Card } from "./scripts/Card.js";
+import { openPopUp, hidePopUp } from "./scripts/utils.js";
+import { PopupWithForm } from "./scripts/PopupWithForm.js";
+import { PopupWithImage } from "./scripts/PopupWithImage.js";
 
 /** Declaration of the Popups */
 const popupEdit = document.querySelector('.popup-edit');
@@ -83,7 +86,7 @@ const validationConfig = {
  * @param {string} link - The link of the photo
  */
 function renderCard(card) {
-  const newCard = new Card(card, photoCardTemplate);
+  const newCard = new Card(card, photoCardTemplate, handleCardClick);
   const photoCard = newCard.createCard();
   photoGrid.prepend(photoCard);
 }
@@ -108,6 +111,12 @@ function handleNewPlaceFormSubmit() {
 function handleProfileFormSubmit() {
   profileName.textContent = nameInput.value;
   profileDescription.textContent = descriptionInput.value;
+}
+
+function handleCardClick() {
+  const popup = new PopupWithImage('.popup-photo');
+  popup.setEventListeners();
+  popup.open(this._image, this._name);
 }
 
 /**
@@ -160,8 +169,6 @@ editButton.addEventListener("click", () => {
 closeButtonEdit.addEventListener("click", () => {
   editPopup.close();
 });
-
-//formEdit.addEventListener("submit", handleProfileFormSubmit);
 
 /** Photo popup */
 
