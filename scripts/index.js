@@ -97,15 +97,12 @@ function loadCards() {
   });
 }
 
-function handleNewPlaceFormSubmit(evt) {
-  evt.preventDefault();
-  hidePopUp(popupAdd);
+function handleNewPlaceFormSubmit() {
   const card = {
     name: titleInput.value,
     link: linkInput.value
   };
   renderCard(card);
-  formAdd.reset();
 }
 
 function handleProfileFormSubmit(evt) {
@@ -116,14 +113,12 @@ function handleProfileFormSubmit(evt) {
 }
 
 /**
- * Enables validation on all forms. 
+ * Enables validation on all forms.
  * Saves the formValidators on a Map for future access
  */
 function enableFormValidationOnAllForms() {
   const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
   formList.forEach((formElement) => {
-    //TODO how to use this popups here.
-    //const form = new PopupWithForm();
     const formName = formElement.getAttribute("name");
     const formValidator = new FormValidator(validationConfig, formElement);
     formValidator.enableValidation();
@@ -134,8 +129,11 @@ function enableFormValidationOnAllForms() {
 /**
  * Loading web page
  */
+const addPopup = new PopupWithForm('.popup-add', handleNewPlaceFormSubmit);
+const editPopup = new PopupWithForm('.popup-edit', handleProfileFormSubmit);
 loadCards();
 enableFormValidationOnAllForms();
+editPopup.open();
 
 
 /** Declaration of the event listeners */
@@ -150,7 +148,7 @@ closeButtonAdd.addEventListener("click", () => {
   hidePopUp(popupAdd);
 });
 
-formAdd.addEventListener("submit", handleNewPlaceFormSubmit);
+//formAdd.addEventListener("submit", handleNewPlaceFormSubmit);
 
 
 /** Edit Popup and Form */

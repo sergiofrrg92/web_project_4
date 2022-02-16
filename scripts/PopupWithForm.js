@@ -19,7 +19,9 @@ class PopupWithForm extends Popup {
     }
 
     setEventListeners() {
-        this._form.addEventListener("submit", this._handleProfileFormSubmit);
+        this._form.addEventListener("submit", (evt) => {
+          this._handleProfileFormSubmit(evt);
+        });
         this._popup.querySelector('.popup__close-button').addEventListener("click", close);
         super.setEventListeners();
     }
@@ -31,9 +33,8 @@ class PopupWithForm extends Popup {
 
     _handleProfileFormSubmit(evt) {
       evt.preventDefault();
-      profileName.textContent = nameInput.value;
-      profileDescription.textContent = descriptionInput.value;
-      hidePopUp(popupEdit);
+      this._submitter();
+      this.close();
     }
 }
 
