@@ -1,5 +1,3 @@
-import { PopupWithImage } from "./PopupWithImage.js";
-import {openPopUp} from "./utils.js"
 
 const popupPhoto = document.querySelector('.popup-photo');
 
@@ -70,12 +68,6 @@ class Card {
           this._cardClickHandler();
         });
     }
-
-    _handleOpenPhotoEvent() {
-        const popup = new PopupWithImage('.popup-photo');
-        popup.open(this._image, this._name);
-      }
-
 
 }
 
