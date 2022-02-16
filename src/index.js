@@ -1,10 +1,19 @@
 import "./styles/index.css";
 
-import { FormValidator } from "./scripts/components/FormValidator.js";
-import { Card } from "./scripts/components/Card.js";
-import { openPopUp, hidePopUp } from "./scripts/utils.js";
-import { PopupWithForm } from "./scripts/components/PopupWithForm.js";
-import { PopupWithImage } from "./scripts/components/PopupWithImage.js";
+import { FormValidator } from "./components/FormValidator.js";
+import { Card } from "./components/Card.js";
+import { PopupWithForm } from "./components/PopupWithForm.js";
+import { PopupWithImage } from "./components/PopupWithImage.js";
+import { UserInfo } from "./components/UserInfo.js"
+
+//TODO how to use it on PopupForm when opening it, to retrieve the info.
+const userSelectors = {
+  nameSelector: ".profile__name",
+  jobSelector: ".profile__description"
+};
+
+const initialName = "Jacques Cousteau";
+const initialJob = "Explorer";
 
 /** Declaration of the Popups */
 const popupEdit = document.querySelector('.popup-edit');
@@ -139,6 +148,8 @@ function enableFormValidationOnAllForms() {
     forms.set(formName, formValidator);
   });
 }
+
+/** User information loading */
 
 
 /** Popup loading and event listener setup */
