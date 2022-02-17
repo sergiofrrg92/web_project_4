@@ -32,14 +32,14 @@ class Card {
         const deleteButton = this._element.querySelector(".photo-card__delete-button");
         this._addDeleteEventListener(deleteButton);
 
-        const photo = this._element.querySelector('.photo-card__photo');
+        const photo = this._element.querySelector(".photo-card__photo");
         this._addOpenPhotoEventListener(photo);
     }
 
-    _createNewPhotoCardElement(){
+    _createNewPhotoCardElement() {
         const photoCard = this._cardSelector.querySelector(".photo-card").cloneNode(true);
 
-        const photo = photoCard.querySelector('.photo-card__photo');
+        const photo = photoCard.querySelector(".photo-card__photo");
         const photoTitle = photoCard.querySelector(".photo-card__title");
 
         photo.src = this._image;
@@ -51,7 +51,7 @@ class Card {
 
     _addLikeEventListener(likeButton) {
         likeButton.addEventListener("click", () => {
-            this._element.querySelector('.photo-card__like-button').classList.toggle('photo-card__like-button_active');
+            this._element.querySelector(".photo-card__like-button").classList.toggle("photo-card__like-button_active");
         });
     }
 
