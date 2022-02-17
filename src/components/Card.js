@@ -4,12 +4,12 @@ const popupPhoto = document.querySelector('.popup-photo');
 
 class Card {
 
-    constructor({ name, link }, cardSelector, cardClickHandler) {
+    constructor({ name, link }, cardSelector, handleCardClick) {
 
         this._name = name;
         this._image = link;
         this._cardSelector = cardSelector;
-        this._cardClickHandler = cardClickHandler;
+        this._handleCardClick = handleCardClick;
     }
 
         /**
@@ -18,23 +18,21 @@ class Card {
      * @returns photoCard to be rendered
      */
     createCard() {
-        const photoCard = this._createNewPhotoCardElement();
-        this._addEventListeners(photoCard);
-        this._element = photoCard;
+      this._element = this._createNewPhotoCardElement();
+      this._addEventListeners();
 
-        return photoCard;
-
+      return this._element;
     }
 
-    _addEventListeners(photoCard){
+    _addEventListeners(){
 
-        const likeButton = photoCard.querySelector(".photo-card__like-button");
+        const likeButton = this._element.querySelector(".photo-card__like-button");
         this._addLikeEventListener(likeButton);
 
-        const deleteButton = photoCard.querySelector(".photo-card__delete-button");
+        const deleteButton = this._element.querySelector(".photo-card__delete-button");
         this._addDeleteEventListener(deleteButton);
 
-        const photo = photoCard.querySelector('.photo-card__photo');
+        const photo = this._element.querySelector('.photo-card__photo');
         this._addOpenPhotoEventListener(photo);
     }
 
@@ -65,7 +63,7 @@ class Card {
 
     _addOpenPhotoEventListener(photo) {
         photo.addEventListener("click", () => {
-          this._cardClickHandler();
+          this._handleCardClick();
         });
     }
 
