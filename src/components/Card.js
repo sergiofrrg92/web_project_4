@@ -49,16 +49,26 @@ class Card {
         return photoCard;
     }
 
+    /*
+    Keeping comment for learning purposes
+    declare methods as arrow functions to not lose context `this`. `this` is Card instance here
+    */
+    _handleLikeEvent = () => {
+      const likeButton = this._element.querySelector(".photo-card__like-button");
+      likeButton.classList.toggle('photo-card__like-button_active');
+    }
+
     _addLikeEventListener(likeButton) {
-        likeButton.addEventListener("click", () => {
-            this._element.querySelector(".photo-card__like-button").classList.toggle("photo-card__like-button_active");
-        });
+        likeButton.addEventListener("click", this._handleLikeEvent);
+    }
+
+    _handleDeleteEvent = () => {
+      this._element.remove();
+      this._element = null;
     }
 
     _addDeleteEventListener(deleteButton) {
-        deleteButton.addEventListener("click", () => {
-            this._element.remove();
-        });
+        deleteButton.addEventListener("click", this._handleDeleteEvent);
     }
 
     _addOpenPhotoEventListener(photo) {
