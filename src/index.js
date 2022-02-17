@@ -147,11 +147,11 @@ userInfo.setUserInfo(initialUserInfo);
 
 /** Popup loading and event listener setup */
 const addPopup = new PopupWithForm('.popup-add', handleNewPlaceFormSubmit);
-addPopup.setEventListeners();
+//addPopup.setEventListeners();
 const editPopup = new PopupWithForm('.popup-edit', handleProfileFormSubmit);
-editPopup.setEventListeners();
+//editPopup.setEventListeners();
 const photoPopup = new PopupWithImage('.popup-photo');
-photoPopup.setEventListeners();
+//photoPopup.setEventListeners();
 
 /**
  * Loading cards with Section

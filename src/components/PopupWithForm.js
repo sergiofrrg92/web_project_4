@@ -19,10 +19,13 @@ class PopupWithForm extends Popup {
     }
 
     setEventListeners() {
-      this._form.addEventListener("submit", (evt) => {
-        this._handleProfileFormSubmit(evt);
-      });
+      this._form.addEventListener("submit", this._handleProfileFormSubmit);
       super.setEventListeners();
+    }
+
+    removeEventListeners() {
+      this._form.removeEventListener("submit", this._handleProfileFormSubmit);
+      super.removeEventListeners();
     }
 
     close() {
@@ -30,7 +33,7 @@ class PopupWithForm extends Popup {
         super.close();
     }
 
-    _handleProfileFormSubmit(evt) {
+    _handleProfileFormSubmit = (evt) => {
       evt.preventDefault();
       this._handleSubmit();
       this.close();
