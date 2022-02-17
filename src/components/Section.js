@@ -13,12 +13,12 @@ class Section {
         this.clear();
 
         this._items.forEach(item => {
-          this._renderer(item);
+          this.addItem(this._renderer(item));
         });
     }
 
     addItem(item) {
-        this._container.append(item);
+        this._container.prepend(item);
     }
 }
 

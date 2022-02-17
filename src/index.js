@@ -5,6 +5,7 @@ import { Card } from "./components/Card.js";
 import { PopupWithForm } from "./components/PopupWithForm.js";
 import { PopupWithImage } from "./components/PopupWithImage.js";
 import { UserInfo } from "./components/UserInfo.js"
+import { Section } from "./components/Section";
 
 //TODO how to use it on PopupForm when opening it, to retrieve the info.
 const userSelectors = {
@@ -42,12 +43,10 @@ const linkInput = formAdd.querySelector('.form__text-input[name="image-link"]');
 
 const profile = document.querySelector('.profile');
 const editButton = profile.querySelector(".profile__edit-button");
-const profileName = profile.querySelector('.profile__name');
-const profileDescription = profile.querySelector('.profile__description');
 const addButton = profile.querySelector(".profile__add-button");
 
 /** Declaration of the Photos */
-const photoGrid = document.querySelector(".photos__grid");
+const photoGridSelector = ".photos__grid";
 const photoCardTemplate = document.querySelector("#photo-card__template").content;
 
 /** Declaration of the Initial Cards */
@@ -92,23 +91,14 @@ const validationConfig = {
 
 
 /**
- * Renders the card created by createCard()
+ * Handles card creation on Section
  * @param {string} name - The title of the card
  * @param {string} link - The link of the photo
  */
 function renderCard(card) {
   const newCard = new Card(card, photoCardTemplate, handleCardClick);
   const photoCard = newCard.createCard();
-  photoGrid.prepend(photoCard);
-}
-
-/**
- * Initially loads all the cards in the initialCards list
- */
-function loadCards() {
-  initialCards.forEach((card) => {
-    renderCard(card);
-  });
+  return photoCard;
 }
 
 /**
@@ -119,7 +109,8 @@ function handleNewPlaceFormSubmit() {
     name: titleInput.value,
     link: linkInput.value
   };
-  renderCard(card);
+  const newCard = new Card(card, photoCardTemplate, handleCardClick);
+  section.addItem(newCard.createCard());
 }
 
 /**
@@ -163,9 +154,15 @@ const photoPopup = new PopupWithImage('.popup-photo');
 photoPopup.setEventListeners();
 
 /**
- * Loading web page
+ * Loading cards with Section
  */
-loadCards();
+const section = new Section( { 
+    items: initialCards, 
+    renderer: renderCard
+  },
+  photoGridSelector);
+
+section.renderer();
 
 /** Enable Validation */
 enableFormValidationOnAllForms();
