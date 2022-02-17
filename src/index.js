@@ -12,8 +12,10 @@ const userSelectors = {
   jobSelector: ".profile__description"
 };
 
-const initialName = "Jacques Cousteau";
-const initialJob = "Explorer";
+const initialUserInfo = { 
+  newName: "Jacques Cousteau",
+  newJob: "Explorer"
+};
 
 /** Declaration of the Popups */
 const popupEdit = document.querySelector('.popup-edit');
@@ -124,8 +126,7 @@ function handleNewPlaceFormSubmit() {
  * Handles new profile form submit (Sent to popupWithForm)
  */
 function handleProfileFormSubmit() {
-  profileName.textContent = nameInput.value;
-  profileDescription.textContent = descriptionInput.value;
+  userInfo.setUserInfo( { newName: nameInput.value, newJob: descriptionInput.value })
 }
 
 /**
@@ -150,7 +151,8 @@ function enableFormValidationOnAllForms() {
 }
 
 /** User information loading */
-
+const userInfo = new UserInfo(userSelectors);
+userInfo.setUserInfo(initialUserInfo);
 
 /** Popup loading and event listener setup */
 const addPopup = new PopupWithForm('.popup-add', handleNewPlaceFormSubmit);
@@ -184,8 +186,8 @@ closeButtonAdd.addEventListener("click", () => {
 
 /** Edit Popup and Form */
 editButton.addEventListener("click", () => {
-  nameInput.value = profileName.textContent;
-  descriptionInput.value = profileDescription.textContent;
+  nameInput.value = userInfo.getUserInfo().name;
+  descriptionInput.value = userInfo.getUserInfo().job;
   editPopup.open();
   forms.get(formEditName).resetValidation();
 });
