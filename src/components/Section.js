@@ -7,7 +7,7 @@ class Section {
 
     clear() {
         this._container.innerHTML = "";
-      }
+    }
 
     renderer() {
         this.clear();
