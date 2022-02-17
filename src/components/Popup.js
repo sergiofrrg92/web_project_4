@@ -18,6 +18,7 @@ class Popup {
         document.addEventListener("keydown", (evt) => {
             this._handleEscClose(evt);
         });
+        this._popup.querySelector('.popup__close-button').addEventListener("click", close);
     }
 
     _handleEscClose(evt) {
