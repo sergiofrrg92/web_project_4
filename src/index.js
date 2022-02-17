@@ -13,7 +13,7 @@ const userSelectors = {
   jobSelector: ".profile__description"
 };
 
-const initialUserInfo = { 
+const initialUserInfo = {
   newName: "Jacques Cousteau",
   newJob: "Explorer"
 };
@@ -156,8 +156,8 @@ photoPopup.setEventListeners();
 /**
  * Loading cards with Section
  */
-const section = new Section( { 
-    items: initialCards, 
+const section = new Section( {
+    items: initialCards,
     renderer: renderCard
   },
   photoGridSelector);
@@ -183,8 +183,9 @@ closeButtonAdd.addEventListener("click", () => {
 
 /** Edit Popup and Form */
 editButton.addEventListener("click", () => {
-  nameInput.value = userInfo.getUserInfo().name;
-  descriptionInput.value = userInfo.getUserInfo().job;
+  const currentUserInfo = userInfo.getUserInfo();
+  nameInput.value = currentUserInfo.name;
+  descriptionInput.value = currentUserInfo.job;
   editPopup.open();
   forms.get(formEditName).resetValidation();
 });
