@@ -107,25 +107,33 @@ function renderCard(card) {
  */
 function handleNewPlaceFormSubmit() {
   const card = {
-    name: titleInput.value,
-    link: linkInput.value
+    cardName: titleInput.value,
+    cardLink: linkInput.value
   };
-  const newCard = new Card(card, photoCardTemplate, handleCardClick);
-  section.addItem(newCard.createCard());
+
+  api.setNewCard(card)
+    .then(res => {
+      const newCard = new Card(res, photoCardTemplate, handleCardClick);
+      section.addItem(newCard.createCard());
+    })
 }
 
 /**
  * Handles new profile form submit (Sent to popupWithForm)
  */
 function handleProfileFormSubmit() {
-  userInfo.setUserInfo( { newName: nameInput.value, newJob: descriptionInput.value })
+  api.setUserInfo({ newName: nameInput.value, newAbout: descriptionInput.value })
+  .then( res => {
+    userInfo.setUserInfo(res);
+  })
+  
 }
 
 /**
  * Handles open photo on card click (sent to popupWithCard)
  */
 function handleCardClick() {
-    photoPopup.open(this._image, this._name);
+  photoPopup.open(this._image, this._name);
 }
 
 /**
@@ -153,31 +161,35 @@ const api = new Api({
   }
 });
 
-const _initialCards = api.getInitialCards();
-console.log(_initialCards);
+const userInfo = new UserInfo(userSelectors);
 
 /** User information loading */
-const userInfo = new UserInfo(userSelectors);
-userInfo.setUserInfo(initialUserInfo);
-
-/** Popup loading and event listener setup */
-const addPopup = new PopupWithForm('.popup-add', handleNewPlaceFormSubmit);
-//addPopup.setEventListeners();
-const editPopup = new PopupWithForm('.popup-edit', handleProfileFormSubmit);
-//editPopup.setEventListeners();
-const photoPopup = new PopupWithImage('.popup-photo');
-//photoPopup.setEventListeners();
+api.getUserInfo()
+  .then(res => {
+    userInfo.setUserInfo(res);
+  })
 
 /**
  * Loading cards with Section
  */
-const section = new Section( {
-    items: initialCards,
-    renderer: renderCard
-  },
-  photoGridSelector);
 
-section.renderer();
+let section;
+
+api.getInitialCards()
+  .then(res => {
+    section = new Section( {
+      items: res,
+      renderer: renderCard
+    },
+    photoGridSelector);
+
+    section.renderer();
+  });
+
+/** Popup loading and event listener setup */
+const addPopup = new PopupWithForm('.popup-add', handleNewPlaceFormSubmit);
+const editPopup = new PopupWithForm('.popup-edit', handleProfileFormSubmit);
+const photoPopup = new PopupWithImage('.popup-photo');
 
 /** Enable Validation */
 enableFormValidationOnAllForms();

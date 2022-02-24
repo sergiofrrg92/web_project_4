@@ -1,14 +1,11 @@
 class Api {
     constructor(options) {
-        //TODO
+        this._options = options;
     }
 
     getInitialCards() {
-        //TODO
-        return fetch("https://around.nomoreparties.co/v1/group-12/cards", {
-            headers: {
-              authorization: "b9d1c3b6-c0f4-4224-ad8f-4c81efa3f89d"
-            }
+        return fetch(this._options.baseUrl+"/cards/", {
+            headers: this._options.headers
           })
           .then(res => {
             if (res.ok) {
@@ -18,18 +15,103 @@ class Api {
             }
           })
           .then( res => {
-            console.log(res);
             return res;
           })
           .catch( err => {
             // if the server returns an error, reject the promise
-            return Promise.reject(`Error: ${res.status}`);
+            return Promise.reject(`Error: ${err.status}`);
           })
-          .finally ( res => {
+          .finally ( () => {
             console.log("All done");
           })
 
     }
+
+    setNewCard( { cardName, cardLink }) {
+      return fetch(this._options.baseUrl+"/cards/", {
+        method: "POST",
+        headers: this._options.headers,
+        body: JSON.stringify({
+          name: cardName,
+          link: cardLink
+        })
+      })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(`Error: ${res.status}`);
+        }
+      })
+      .then( res => {
+        return res;
+      })
+      .catch( err => {
+        // if the server returns an error, reject the promise
+        return Promise.reject(`Error: ${err.status}`);
+      })
+      .finally ( () => {
+        console.log("All done");
+      })
+    }
+
+    getCardLikes() {
+      
+    }
+
+    getUserInfo() {
+      return fetch(this._options.baseUrl+"/users/me", {
+        headers: this._options.headers
+      })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(`Error: ${res.status}`);
+        }
+      })
+      .then( res => {
+        return res;
+      })
+      .catch( err => {
+        // if the server returns an error, reject the promise
+        return Promise.reject(`Error: ${err.status}`);
+      })
+      .finally ( () => {
+        console.log("All done");
+      })
+
+    }
+
+    setUserInfo( { newName, newAbout }) {
+      return fetch(this._options.baseUrl+"/users/me", {
+        method: "PATCH",
+        headers: this._options.headers,
+        body: JSON.stringify({
+          name: newName,
+          about: newAbout
+        })
+      })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(`Error: ${res.status}`);
+        }
+      })
+      .then( res => {
+        return res;
+      })
+      .catch( err => {
+        // if the server returns an error, reject the promise
+        return Promise.reject(`Error: ${err.status}`);
+      })
+      .finally ( () => {
+        console.log("All done");
+      })
+
+    }
+    
 }
 
 export { Api };
