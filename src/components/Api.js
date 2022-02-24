@@ -55,8 +55,76 @@ class Api {
       })
     }
 
-    getCardLikes() {
-      
+    addLike(id) {
+      return fetch(this._options.baseUrl+"/cards/likes/"+id, {
+        method: "PUT",
+        headers: this._options.headers
+      })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(`Error: ${res.status}`);
+        }
+      })
+      .then( res => {
+        return res;
+      })
+      .catch( err => {
+        // if the server returns an error, reject the promise
+        return Promise.reject(`Error: ${err.status}`);
+      })
+      .finally ( () => {
+        console.log("All done");
+      })
+    }
+
+    removeLike(id) {
+      return fetch(this._options.baseUrl+"/cards/likes/"+id, {
+        method: "DELETE",
+        headers: this._options.headers
+      })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(`Error: ${res.status}`);
+        }
+      })
+      .then( res => {
+        return res;
+      })
+      .catch( err => {
+        // if the server returns an error, reject the promise
+        return Promise.reject(`Error: ${err.status}`);
+      })
+      .finally ( () => {
+        console.log("All done");
+      })
+    }
+
+    deleteCard(id) {
+      return fetch(this._options.baseUrl+"/cards/"+id, {
+        method: "DELETE",
+        headers: this._options.headers
+      })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(`Error: ${res.status}`);
+        }
+      })
+      .then( res => {
+        return res;
+      })
+      .catch( err => {
+        // if the server returns an error, reject the promise
+        return Promise.reject(`Error: ${err.status}`);
+      })
+      .finally ( () => {
+        console.log("All done");
+      })
     }
 
     getUserInfo() {
@@ -90,6 +158,34 @@ class Api {
         body: JSON.stringify({
           name: newName,
           about: newAbout
+        })
+      })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(`Error: ${res.status}`);
+        }
+      })
+      .then( res => {
+        return res;
+      })
+      .catch( err => {
+        // if the server returns an error, reject the promise
+        return Promise.reject(`Error: ${err.status}`);
+      })
+      .finally ( () => {
+        console.log("All done");
+      })
+
+    }
+
+    updateAvatar(link) {
+      return fetch(this._options.baseUrl+"/users/me/avatar", {
+        method: "PATCH",
+        headers: this._options.headers,
+        body: JSON.stringify({
+          avatar: link
         })
       })
       .then(res => {
