@@ -5,7 +5,8 @@ import { Card } from "./components/Card.js";
 import { PopupWithForm } from "./components/PopupWithForm.js";
 import { PopupWithImage } from "./components/PopupWithImage.js";
 import { UserInfo } from "./components/UserInfo.js"
-import { Section } from "./components/Section";
+import { Section } from "./components/Section.js";
+import { Api } from "./components/Api.js"
 
 //TODO how to use it on PopupForm when opening it, to retrieve the info.
 const userSelectors = {
@@ -140,6 +141,20 @@ function enableFormValidationOnAllForms() {
     forms.set(formName, formValidator);
   });
 }
+
+/**
+ * Setting up the Api class
+ */
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/group-12",
+  headers: {
+    authorization: "b9d1c3b6-c0f4-4224-ad8f-4c81efa3f89d",
+    "Content-Type": "application/json"
+  }
+});
+
+const _initialCards = api.getInitialCards();
+console.log(_initialCards);
 
 /** User information loading */
 const userInfo = new UserInfo(userSelectors);
