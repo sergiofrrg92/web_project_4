@@ -4,11 +4,12 @@ const popupPhoto = document.querySelector('.popup-photo');
 
 class Card {
 
-    constructor({ _id, name, link }, cardSelector, handleCardClick, handleDeleteCardClick, handleCardDeleteSubmit) {
+    constructor({ _id, name, link, likes }, cardSelector, handleCardClick, handleDeleteCardClick, handleCardDeleteSubmit) {
 
         this._id = _id;
         this._name = name;
         this._image = link;
+        this._likes = likes;
         this._cardSelector = cardSelector;
         this._handleCardClick = handleCardClick;
         this._handleDeleteCardClick = handleDeleteCardClick;
