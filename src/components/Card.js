@@ -4,17 +4,21 @@ const popupPhoto = document.querySelector('.popup-photo');
 
 class Card {
 
-    constructor({ name, link }, cardSelector, handleCardClick, handleDeleteCardClick) {
+    constructor({ _id, name, link }, cardSelector, handleCardClick, handleDeleteCardClick, handleCardDeleteSubmit) {
 
+        this._id = _id;
         this._name = name;
         this._image = link;
         this._cardSelector = cardSelector;
         this._handleCardClick = handleCardClick;
         this._handleDeleteCardClick = handleDeleteCardClick;
-        //TODO implement delete submit and handledelete event listeners
     }
 
-        /**
+    getId() {
+      return this._id;
+    }
+
+    /**
      * Creates one single photo card with specified card information (object)
      * @param {object} card
      * @returns photoCard to be rendered
@@ -24,6 +28,11 @@ class Card {
       this._addEventListeners();
 
       return this._element;
+    }
+
+    deleteCard() {
+      this._element.remove();
+      this._element = null;
     }
 
     _addEventListeners(){
@@ -65,8 +74,7 @@ class Card {
     }
 
     _handleDeleteEvent = () => {
-      this._element.remove();
-      this._element = null;
+      this._handleDeleteCardClick();
     }
 
     _addDeleteEventListener(deleteButton) {

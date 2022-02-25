@@ -84,6 +84,7 @@ const initialCards = [
 ];
 
 const forms = new Map();
+let cardToDelete;
 
 /** Declaration of the Setting object for card validation */
 const validationConfig = {
@@ -102,7 +103,7 @@ const validationConfig = {
  * @param {string} link - The link of the photo
  */
 function renderCard(card) {
-  const newCard = new Card(card, photoCardTemplate, handleCardClick);
+  const newCard = new Card(card, photoCardTemplate, handleCardClick,  handleCardDeleteClick);
   const photoCard = newCard.createCard();
   return photoCard;
 }
@@ -137,7 +138,12 @@ function handleProfileFormSubmit() {
  * Deletes the selected Card
  */
 function handleDeleteFormSubmit() {
-  //TODO
+  api.deleteCard(cardToDelete.getId())
+    .then(() => {
+      console.log("Card deleted");
+      cardToDelete.deleteCard();
+      cardToDelete=null;
+    })
 }
 
 /**
@@ -149,6 +155,7 @@ function handleCardClick() {
 
 function handleCardDeleteClick() {
   deletePopup.open();
+  cardToDelete = this;
 }
 
 /**
