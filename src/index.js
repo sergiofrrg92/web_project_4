@@ -23,16 +23,19 @@ const initialUserInfo = {
 const popupEdit = document.querySelector('.popup-edit');
 const popupAdd = document.querySelector('.popup-add');
 const popupPhoto = document.querySelector('.popup-photo');
+const popupDelete = document.querySelector('.popup-delete')
 
 /** Declaration of the Close Buttons */
 const closeButtonEdit = popupEdit.querySelector('.popup__close-button');
 const closeButtonAdd = popupAdd.querySelector('.popup__close-button');
 const closeButtonPhoto = popupPhoto.querySelector('.popup__close-button');
+const closeButtonDelete = popupDelete.querySelector('.popup__close-button');
 
 /** Declaration of the Forms */
 
 const formEditName = 'edit-form';
 const formAddName = 'add-form';
+const formDeleteName = 'delete-form';
 
 const formEdit = popupEdit.querySelector('.form');
 const nameInput = formEdit.querySelector('.form__text-input[name="name"]');
@@ -41,6 +44,8 @@ const descriptionInput = formEdit.querySelector('.form__text-input[name="about-m
 const formAdd = popupAdd.querySelector('.form');
 const titleInput = formAdd.querySelector('.form__text-input[name="title"]');
 const linkInput = formAdd.querySelector('.form__text-input[name="image-link"]');
+
+const formDelete = popupDelete.querySelector('.form');
 
 const profile = document.querySelector('.profile');
 const editButton = profile.querySelector(".profile__edit-button");
@@ -113,7 +118,7 @@ function handleNewPlaceFormSubmit() {
 
   api.setNewCard(card)
     .then(res => {
-      const newCard = new Card(res, photoCardTemplate, handleCardClick);
+      const newCard = new Card(res, photoCardTemplate, handleCardClick, handleCardDeleteClick);
       section.addItem(newCard.createCard());
     })
 }
@@ -126,7 +131,13 @@ function handleProfileFormSubmit() {
   .then( res => {
     userInfo.setUserInfo(res);
   })
-  
+}
+
+/**
+ * Deletes the selected Card
+ */
+function handleDeleteFormSubmit() {
+  //TODO
 }
 
 /**
@@ -134,6 +145,10 @@ function handleProfileFormSubmit() {
  */
 function handleCardClick() {
   photoPopup.open(this._image, this._name);
+}
+
+function handleCardDeleteClick() {
+  deletePopup.open();
 }
 
 /**
@@ -189,6 +204,7 @@ api.getInitialCards()
 /** Popup loading and event listener setup */
 const addPopup = new PopupWithForm('.popup-add', handleNewPlaceFormSubmit);
 const editPopup = new PopupWithForm('.popup-edit', handleProfileFormSubmit);
+const deletePopup = new PopupWithForm('.popup-delete', handleDeleteFormSubmit)
 const photoPopup = new PopupWithImage('.popup-photo');
 
 /** Enable Validation */

@@ -4,12 +4,14 @@ const popupPhoto = document.querySelector('.popup-photo');
 
 class Card {
 
-    constructor({ name, link }, cardSelector, handleCardClick) {
+    constructor({ name, link }, cardSelector, handleCardClick, handleDeleteCardClick) {
 
         this._name = name;
         this._image = link;
         this._cardSelector = cardSelector;
         this._handleCardClick = handleCardClick;
+        this._handleDeleteCardClick = handleDeleteCardClick;
+        //TODO implement delete submit and handledelete event listeners
     }
 
         /**
