@@ -121,7 +121,7 @@ function handleNewPlaceFormSubmit() {
     .then(res => {
       const newCard = new Card(res, photoCardTemplate, handleCardClick, handleCardDeleteClick);
       section.addItem(newCard.createCard());
-    })
+      })
 }
 
 /**
@@ -206,7 +206,8 @@ api.getInitialCards()
     photoGridSelector);
 
     section.renderer();
-  });
+
+});
 
 /** Popup loading and event listener setup */
 const addPopup = new PopupWithForm('.popup-add', handleNewPlaceFormSubmit);

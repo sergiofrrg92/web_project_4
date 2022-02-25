@@ -112,7 +112,7 @@ class Api {
         if (res.ok) {
           return res.json();
         } else {
-          return Promise.reject(`Error: ${res.status}`);
+          return Promise.reject(`Error: ${res.status}, ${res.body}`);
         }
       })
       .then( res => {
@@ -120,7 +120,7 @@ class Api {
       })
       .catch( err => {
         // if the server returns an error, reject the promise
-        return Promise.reject(`Error: ${err.status}`);
+        return Promise.reject(`Error: ${err.status}, ${err.body}`);
       })
       .finally ( () => {
         console.log("All done");
@@ -207,7 +207,7 @@ class Api {
       })
 
     }
-    
+
 }
 
 export { Api };
