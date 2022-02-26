@@ -121,8 +121,8 @@ function handleNewPlaceFormSubmit() {
   api.setNewCard(card)
     .then(res => {
       const newCard = new Card(res, photoCardTemplate, handleCardClick, handleCardDeleteClick, handleLikeClick);
-      newCard.updateLikes(newCard._likes, userInfo._id);
       section.addItem(newCard.createCard());
+      newCard.updateLikes(newCard._likes, userInfo._id);
       })
 }
 
