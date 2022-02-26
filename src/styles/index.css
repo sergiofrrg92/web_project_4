@@ -19,6 +19,7 @@
 @import url(../blocks/photo-card/__title/photo-card__title.css);
 @import url(../blocks/photo-card/__like-button/photo-card__like-button.css);
 @import url(../blocks/photo-card/__like-button/_active/photo-card__like-button_active.css);
+@import url(../blocks/photo-card/__like-count/photo-card__like-count.css);
 @import url(../blocks/photo-card/__delete-button/photo-card__delete-button.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__text/footer__text.css);
