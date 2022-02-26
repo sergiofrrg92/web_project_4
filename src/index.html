@@ -18,12 +18,20 @@
     <main class="main">
       <section class="profile">
         <div class="profile__info">
-          <img
-            id="jacques-cousteau"
-            class="profile__photo"
-            src="<%=require('./images/jacques_cousteau.jpeg')%>"
-            alt="A photo of Jacques Cousteau with its famous cutest red hat"
-          />
+          <div class="profile__photo-container">
+            <img
+              id="jacques-cousteau"
+              class="profile__photo"
+              src="<%=require('./images/jacques_cousteau.jpeg')%>"
+              alt="A photo of Jacques Cousteau with its famous cutest red hat"
+            />
+            <button
+                class="profile__photo-edit-button"
+                aria-label="Photo edit button"
+                type="button"
+            ></button>
+            <div class="profile__photo-overlay"></div>
+        </div>
           <div class="profile__text">
             <h1 class="profile__name">Jacques Cousteau</h1>
             <button

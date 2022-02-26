@@ -5,7 +5,10 @@
 @import url(../blocks/logo/logo.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__info/profile__info.css);
+@import url(../blocks/profile/__photo-container/profile__photo-container.css);
 @import url(../blocks/profile/__photo/profile__photo.css);
+@import url(../blocks/profile/__photo-overlay/profile__photo-overlay.css);
+@import url(../blocks/profile/__photo-edit-button/profile__photo-edit-button.css);
 @import url(../blocks/profile/__text/profile__text.css);
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__description/profile__description.css);

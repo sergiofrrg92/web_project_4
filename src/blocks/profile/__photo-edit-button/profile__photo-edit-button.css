@@ -1,0 +1,21 @@
+.profile__photo-edit-button {
+    margin: 0;
+    position:absolute;
+    top: 47px;
+    left: 47px;
+    display: inline-block;
+    background: url("../../../images/profile__edit-photo-button.svg");
+    background-size: cover;
+    min-width: 26px;
+    min-height: 26px;
+    border: 0;
+    cursor: pointer;
+    z-index: 1;
+    opacity: 0;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+  }
+
+  

@@ -1,0 +1,13 @@
+.profile__photo-container {
+    position: relative;
+    max-height: 120px;
+    max-width: 120px;
+}
+
+.profile__photo-container:hover .profile__photo-overlay {
+    opacity: 0.8;
+  }
+
+.profile__photo-container:hover .profile__photo-edit-button {
+    opacity: 1;
+  }
