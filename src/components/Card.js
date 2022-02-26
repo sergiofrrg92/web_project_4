@@ -4,7 +4,7 @@ const popupPhoto = document.querySelector('.popup-photo');
 
 class Card {
 
-    constructor({ _id, name, link, likes }, cardSelector, handleCardClick, handleDeleteCardClick, handleCardDeleteSubmit) {
+    constructor({ _id, name, link, likes }, cardSelector, handleCardClick, handleDeleteCardClick, handleLikeClick) {
 
         this._id = _id;
         this._name = name;
@@ -13,6 +13,7 @@ class Card {
         this._cardSelector = cardSelector;
         this._handleCardClick = handleCardClick;
         this._handleDeleteCardClick = handleDeleteCardClick;
+        this._handleLikeClick = handleLikeClick;
     }
 
     getId() {
@@ -36,6 +37,20 @@ class Card {
       this._element = null;
     }
 
+    updateLikes(likes, userId) {
+      this._likes = likes;
+      const likeButton = this._element.querySelector(".photo-card__like-button");
+
+      this._element.querySelector(".photo-card__like-count").textContent = this._likes.length;
+
+      if(JSON.stringify(this._likes).includes(userId)) {
+        likeButton.classList.add('photo-card__like-button_active');
+      } else {
+        likeButton.classList.remove('photo-card__like-button_active');
+      }
+      
+    }
+
     _addEventListeners(){
 
         const likeButton = this._element.querySelector(".photo-card__like-button");
@@ -53,10 +68,12 @@ class Card {
 
         const photo = photoCard.querySelector(".photo-card__photo");
         const photoTitle = photoCard.querySelector(".photo-card__title");
+        const photoLikes = photoCard.querySelector(".photo-card__like-count");
 
         photo.src = this._image;
         photo.alt = this._name;
         photoTitle.textContent = this._name;
+        photoLikes.textContent = this._likes.length;
 
         return photoCard;
     }
@@ -67,7 +84,11 @@ class Card {
     */
     _handleLikeEvent = () => {
       const likeButton = this._element.querySelector(".photo-card__like-button");
-      likeButton.classList.toggle('photo-card__like-button_active');
+      if(likeButton.classList.contains('photo-card__like-button_active')) {
+        this._handleLikeClick(false);
+      } else {
+        this._handleLikeClick(true);
+      }
     }
 
     _addLikeEventListener(likeButton) {

@@ -11,12 +11,13 @@ class UserInfo {
         };
     }
 
-    setUserInfo( { name, about } ) {
+    setUserInfo( { name, about, _id } ) {
         const nameElement = document.querySelector(this._nameSelector);
         const jobElement = document.querySelector(this._jobSelector);
 
         nameElement.textContent = name;
         jobElement.textContent = about;
+        this._id = _id;
     }
 }
 

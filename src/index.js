@@ -103,8 +103,9 @@ const validationConfig = {
  * @param {string} link - The link of the photo
  */
 function renderCard(card) {
-  const newCard = new Card(card, photoCardTemplate, handleCardClick,  handleCardDeleteClick);
+  const newCard = new Card(card, photoCardTemplate, handleCardClick,  handleCardDeleteClick, handleLikeClick);
   const photoCard = newCard.createCard();
+  newCard.updateLikes(newCard._likes, userInfo._id);
   return photoCard;
 }
 
@@ -119,7 +120,8 @@ function handleNewPlaceFormSubmit() {
 
   api.setNewCard(card)
     .then(res => {
-      const newCard = new Card(res, photoCardTemplate, handleCardClick, handleCardDeleteClick);
+      const newCard = new Card(res, photoCardTemplate, handleCardClick, handleCardDeleteClick, handleLikeClick);
+      newCard.updateLikes(newCard._likes, userInfo._id);
       section.addItem(newCard.createCard());
       })
 }
@@ -156,6 +158,26 @@ function handleCardClick() {
 function handleCardDeleteClick() {
   deletePopup.open();
   cardToDelete = this;
+}
+
+/**
+ * Calls the API to add/remove a like to the list depending on the isLiked param.
+ * @param {boolean} isLiked 
+ */
+function handleLikeClick(isLiked) {
+  if(isLiked) {
+    api.addLike(this.getId())
+      .then((res) => {
+        console.log("Like added succesfully", res.likes);
+        this.updateLikes(res.likes, userInfo._id);
+      })
+  } else {
+    api.removeLike(this.getId())
+      .then((res) => {
+        console.log("Like removed succesfully", res.likes);
+        this.updateLikes(res.likes, userInfo._id);
+      })
+  }
 }
 
 /**
