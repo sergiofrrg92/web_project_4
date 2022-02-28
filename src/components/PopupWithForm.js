@@ -5,6 +5,7 @@ class PopupWithForm extends Popup {
       super(popupSelector);
       this._handleSubmit = handleSubmit;
       this._form = this._popup.querySelector('.form');
+      this._submitButton = this._popup.querySelector('.form__submit-button');
     }
 
     _getInputValues() {
@@ -36,7 +37,6 @@ class PopupWithForm extends Popup {
     _handleProfileFormSubmit = (evt) => {
       evt.preventDefault();
       this._handleSubmit();
-      this.close();
     }
 }
 

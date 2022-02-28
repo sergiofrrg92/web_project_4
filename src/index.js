@@ -124,21 +124,31 @@ function handleNewPlaceFormSubmit() {
     cardLink: linkInput.value
   };
 
+  this._submitButton.textContent = "Saving...";
   api.setNewCard(card)
     .then(res => {
       const newCard = new Card(res, photoCardTemplate, handleCardClick, handleCardDeleteClick, handleLikeClick);
       section.addItem(newCard.createCard());
       newCard.updateLikes(newCard._likes, userInfo._id);
       })
+    .finally(() => {
+        this.close();
+        this._submitButton.textContent = "Create";
+    })
 }
 
 /**
  * Handles new profile form submit (Sent to popupWithForm)
  */
 function handleProfileFormSubmit() {
+  this._submitButton.textContent = "Saving...";
   api.setUserInfo({ newName: nameInput.value, newAbout: descriptionInput.value })
   .then( res => {
     userInfo.setUserInfo(res);
+  })
+  .finally(() => {
+    this.close();
+    this._submitButton.textContent = "Save";
   })
 }
 
@@ -158,11 +168,17 @@ function handleDeleteFormSubmit() {
  * Updates the avatar photo
  */
 function handleEditAvatarFormSubmit() {
+  this._submitButton.textContent = "Saving...";
+
   api.updateAvatar(avatarLinkInput.value)
     .then((res) => {
       console.log("Avatar updated ",res);
       userInfo.setUserInfo(res);
-    });
+    })
+    .finally(() => {
+      this.close();
+      this._submitButton.textContent = "Save";
+  })
 }
 
 /**
