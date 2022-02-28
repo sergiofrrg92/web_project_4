@@ -156,11 +156,14 @@ function handleProfileFormSubmit() {
  * Deletes the selected Card
  */
 function handleDeleteFormSubmit() {
+  this._submitButton.textContent = "Deleting...";
   api.deleteCard(cardToDelete.getId())
     .then(() => {
-      console.log("Card deleted");
       cardToDelete.deleteCard();
       cardToDelete=null;
+    }).finally(() => {
+      this.close();
+      this._submitButton.textContent = "Yes";
     })
 }
 
