@@ -131,6 +131,32 @@
       </div>
     </div>
 
+    <div class="popup popup-edit-avatar">
+      <div class="popup__container">
+        <button
+          type="button"
+          class="popup__close-button"
+          aria-label="Edit avatar close button"
+        ></button>
+        <form class="form" name="edit-avatar-form">
+          <h2 class="form__title">Change profile picture</h2>
+
+          <input
+            id="form__avatar-link-input"
+            class="form__text-input"
+            type="url"
+            name="avatar-link"
+            placeholder="Avatar link"
+            required
+          />
+          <span class="form__input-error form__avatar-link-input-error"></span>
+          <button class="form__submit-button form__edit-photo-button" type="submit">
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+
     <div class="popup popup-delete">
       <div class="popup__container">
         <button

@@ -11,7 +11,8 @@ import { Api } from "./components/Api.js"
 //TODO how to use it on PopupForm when opening it, to retrieve the info.
 const userSelectors = {
   nameSelector: ".profile__name",
-  jobSelector: ".profile__description"
+  jobSelector: ".profile__description",
+  avatarSelector: ".profile__photo"
 };
 
 const initialUserInfo = {
@@ -24,18 +25,21 @@ const popupEdit = document.querySelector('.popup-edit');
 const popupAdd = document.querySelector('.popup-add');
 const popupPhoto = document.querySelector('.popup-photo');
 const popupDelete = document.querySelector('.popup-delete')
+const popupEditAvatar = document.querySelector('.popup-edit-avatar');
 
 /** Declaration of the Close Buttons */
 const closeButtonEdit = popupEdit.querySelector('.popup__close-button');
 const closeButtonAdd = popupAdd.querySelector('.popup__close-button');
 const closeButtonPhoto = popupPhoto.querySelector('.popup__close-button');
 const closeButtonDelete = popupDelete.querySelector('.popup__close-button');
+const closeButtonEditAvatar = popupEditAvatar.querySelector('.popup__close-button');
 
 /** Declaration of the Forms */
 
 const formEditName = 'edit-form';
 const formAddName = 'add-form';
 const formDeleteName = 'delete-form';
+const formEditAvatarName = 'edit-avatar-form';
 
 const formEdit = popupEdit.querySelector('.form');
 const nameInput = formEdit.querySelector('.form__text-input[name="name"]');
@@ -45,11 +49,13 @@ const formAdd = popupAdd.querySelector('.form');
 const titleInput = formAdd.querySelector('.form__text-input[name="title"]');
 const linkInput = formAdd.querySelector('.form__text-input[name="image-link"]');
 
-const formDelete = popupDelete.querySelector('.form');
+const formEditAvatar = popupEditAvatar.querySelector('.form');
+const avatarLinkInput = formEditAvatar.querySelector('.form__text-input[name="avatar-link"]');
 
 const profile = document.querySelector('.profile');
 const editButton = profile.querySelector(".profile__edit-button");
 const addButton = profile.querySelector(".profile__add-button");
+const editAvatarButton = profile.querySelector(".profile__photo-edit-button");
 
 /** Declaration of the Photos */
 const photoGridSelector = ".photos__grid";
@@ -149,6 +155,17 @@ function handleDeleteFormSubmit() {
 }
 
 /**
+ * Updates the avatar photo
+ */
+function handleEditAvatarFormSubmit() {
+  api.updateAvatar(avatarLinkInput.value)
+    .then((res) => {
+      console.log("Avatar updated ",res);
+      userInfo.setUserInfo(res);
+    });
+}
+
+/**
  * Handles open photo on card click (sent to popupWithCard)
  */
 function handleCardClick() {
@@ -162,7 +179,7 @@ function handleCardDeleteClick() {
 
 /**
  * Calls the API to add/remove a like to the list depending on the isLiked param.
- * @param {boolean} isLiked 
+ * @param {boolean} isLiked
  */
 function handleLikeClick(isLiked) {
   if(isLiked) {
@@ -210,6 +227,7 @@ const userInfo = new UserInfo(userSelectors);
 /** User information loading */
 api.getUserInfo()
   .then(res => {
+    console.log(res);
     userInfo.setUserInfo(res);
   })
 
@@ -234,8 +252,9 @@ api.getInitialCards()
 /** Popup loading and event listener setup */
 const addPopup = new PopupWithForm('.popup-add', handleNewPlaceFormSubmit);
 const editPopup = new PopupWithForm('.popup-edit', handleProfileFormSubmit);
-const deletePopup = new PopupWithForm('.popup-delete', handleDeleteFormSubmit)
+const deletePopup = new PopupWithForm('.popup-delete', handleDeleteFormSubmit);
 const photoPopup = new PopupWithImage('.popup-photo');
+const editAvatarPopup = new PopupWithForm('.popup-edit-avatar', handleEditAvatarFormSubmit);
 
 /** Enable Validation */
 enableFormValidationOnAllForms();
@@ -273,7 +292,20 @@ closeButtonPhoto.addEventListener("click", () => {
   photoPopup.close();
 });
 
+/** Edit avatar popup */
+editAvatarButton.addEventListener("click", () => {
+  editAvatarPopup.open();
+  forms.get(formEditAvatarName).resetValidation();
+});
 
+closeButtonEditAvatar.addEventListener("click", () => {
+  editAvatarPopup.close();
+});
+
+/** Delete popup */
+closeButtonDelete.addEventListener("click", () => {
+  deletePopup.close();
+});
 
 
 
