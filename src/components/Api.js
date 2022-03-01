@@ -8,11 +8,7 @@ class Api {
             headers: this._options.headers
           })
           .then(res => {
-            if (res.ok) {
-              return res.json();
-            } else {
-              return Promise.reject(`Error: ${res.status}`);
-            }
+            return this._checkResponse(res);
           })
           .then( res => {
             return res;
@@ -21,10 +17,6 @@ class Api {
             // if the server returns an error, reject the promise
             return Promise.reject(`Error: ${err.status}`);
           })
-          .finally ( () => {
-            console.log("All done");
-          })
-
     }
 
     setNewCard( { cardName, cardLink }) {
@@ -37,11 +29,7 @@ class Api {
         })
       })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`Error: ${res.status}`);
-        }
+        return this._checkResponse(res);
       })
       .then( res => {
         return res;
@@ -49,9 +37,6 @@ class Api {
       .catch( err => {
         // if the server returns an error, reject the promise
         return Promise.reject(`Error: ${err.status}`);
-      })
-      .finally ( () => {
-        console.log("All done");
       })
     }
 
@@ -61,11 +46,7 @@ class Api {
         headers: this._options.headers
       })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`Error: ${res.status}`);
-        }
+        return this._checkResponse(res);
       })
       .then( res => {
         return res;
@@ -73,9 +54,6 @@ class Api {
       .catch( err => {
         // if the server returns an error, reject the promise
         return Promise.reject(`Error: ${err.status}`);
-      })
-      .finally ( () => {
-        console.log("All done");
       })
     }
 
@@ -85,11 +63,7 @@ class Api {
         headers: this._options.headers
       })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`Error: ${res.status}`);
-        }
+        return this._checkResponse(res);
       })
       .then( res => {
         return res;
@@ -97,9 +71,6 @@ class Api {
       .catch( err => {
         // if the server returns an error, reject the promise
         return Promise.reject(`Error: ${err.status}`);
-      })
-      .finally ( () => {
-        console.log("All done");
       })
     }
 
@@ -109,11 +80,7 @@ class Api {
         headers: this._options.headers
       })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`Error: ${res.status}, ${res.body}`);
-        }
+        return this._checkResponse(res);
       })
       .then( res => {
         return res;
@@ -122,9 +89,6 @@ class Api {
         // if the server returns an error, reject the promise
         return Promise.reject(`Error: ${err.status}, ${err.body}`);
       })
-      .finally ( () => {
-        console.log("All done");
-      })
     }
 
     getUserInfo() {
@@ -132,11 +96,7 @@ class Api {
         headers: this._options.headers
       })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`Error: ${res.status}`);
-        }
+        return this._checkResponse(res);
       })
       .then( res => {
         return res;
@@ -144,9 +104,6 @@ class Api {
       .catch( err => {
         // if the server returns an error, reject the promise
         return Promise.reject(`Error: ${err.status}`);
-      })
-      .finally ( () => {
-        console.log("All done");
       })
 
     }
@@ -161,11 +118,7 @@ class Api {
         })
       })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`Error: ${res.status}`);
-        }
+        return this._checkResponse(res);
       })
       .then( res => {
         return res;
@@ -173,9 +126,6 @@ class Api {
       .catch( err => {
         // if the server returns an error, reject the promise
         return Promise.reject(`Error: ${err.status}`);
-      })
-      .finally ( () => {
-        console.log("All done");
       })
 
     }
@@ -189,11 +139,7 @@ class Api {
         })
       })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`Error: ${res.status}`);
-        }
+        return this._checkResponse(res);
       })
       .then( res => {
         return res;
@@ -202,10 +148,15 @@ class Api {
         // if the server returns an error, reject the promise
         return Promise.reject(`Error: ${err.status}`);
       })
-      .finally ( () => {
-        console.log("All done");
-      })
 
+    }
+
+    _checkResponse(res) {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Error: ${res.status}`);
+      }
     }
 
 }
