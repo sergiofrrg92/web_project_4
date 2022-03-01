@@ -13,10 +13,6 @@ class Api {
           .then( res => {
             return res;
           })
-          .catch( err => {
-            // if the server returns an error, reject the promise
-            return Promise.reject(`Error: ${err.status}`);
-          })
     }
 
     setNewCard( { cardName, cardLink }) {
@@ -34,10 +30,6 @@ class Api {
       .then( res => {
         return res;
       })
-      .catch( err => {
-        // if the server returns an error, reject the promise
-        return Promise.reject(`Error: ${err.status}`);
-      })
     }
 
     addLike(id) {
@@ -50,10 +42,6 @@ class Api {
       })
       .then( res => {
         return res;
-      })
-      .catch( err => {
-        // if the server returns an error, reject the promise
-        return Promise.reject(`Error: ${err.status}`);
       })
     }
 
@@ -68,10 +56,6 @@ class Api {
       .then( res => {
         return res;
       })
-      .catch( err => {
-        // if the server returns an error, reject the promise
-        return Promise.reject(`Error: ${err.status}`);
-      })
     }
 
     deleteCard(id) {
@@ -85,10 +69,6 @@ class Api {
       .then( res => {
         return res;
       })
-      .catch( err => {
-        // if the server returns an error, reject the promise
-        return Promise.reject(`Error: ${err.status}, ${err.body}`);
-      })
     }
 
     getUserInfo() {
@@ -101,11 +81,6 @@ class Api {
       .then( res => {
         return res;
       })
-      .catch( err => {
-        // if the server returns an error, reject the promise
-        return Promise.reject(`Error: ${err.status}`);
-      })
-
     }
 
     setUserInfo( { newName, newAbout }) {
@@ -123,11 +98,6 @@ class Api {
       .then( res => {
         return res;
       })
-      .catch( err => {
-        // if the server returns an error, reject the promise
-        return Promise.reject(`Error: ${err.status}`);
-      })
-
     }
 
     updateAvatar(link) {
@@ -144,11 +114,6 @@ class Api {
       .then( res => {
         return res;
       })
-      .catch( err => {
-        // if the server returns an error, reject the promise
-        return Promise.reject(`Error: ${err.status}`);
-      })
-
     }
 
     _checkResponse(res) {

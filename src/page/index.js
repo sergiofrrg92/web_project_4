@@ -131,6 +131,9 @@ function handleNewPlaceFormSubmit() {
       section.addItem(newCard.createCard());
       newCard.updateLikes(newCard._likes, userInfo._id);
       })
+    .catch( err => {
+      console.log(err);
+    })
     .finally(() => {
         this.close();
         this._submitButton.textContent = "Create";
@@ -145,6 +148,9 @@ function handleProfileFormSubmit() {
   api.setUserInfo({ newName: nameInput.value, newAbout: descriptionInput.value })
   .then( res => {
     userInfo.setUserInfo(res);
+  })
+  .catch( err => {
+    console.log(err);
   })
   .finally(() => {
     this.close();
@@ -161,7 +167,11 @@ function handleDeleteFormSubmit() {
     .then(() => {
       cardToDelete.deleteCard();
       cardToDelete=null;
-    }).finally(() => {
+    })
+    .catch( err => {
+      console.log(err);
+    })
+    .finally(() => {
       this.close();
       this._submitButton.textContent = "Yes";
     })
@@ -177,6 +187,9 @@ function handleEditAvatarFormSubmit() {
     .then((res) => {
       console.log("Avatar updated ",res);
       userInfo.setUserInfo(res);
+    })
+    .catch( err => {
+      console.log(err);
     })
     .finally(() => {
       this.close();
@@ -207,11 +220,17 @@ function handleLikeClick(isLiked) {
         console.log("Like added succesfully", res.likes);
         this.updateLikes(res.likes, userInfo._id);
       })
+      .catch( err => {
+        console.log(err);
+      })
   } else {
     api.removeLike(this.getId())
       .then((res) => {
         console.log("Like removed succesfully", res.likes);
         this.updateLikes(res.likes, userInfo._id);
+      })
+      .catch( err => {
+        console.log(err);
       })
   }
 }
@@ -249,6 +268,9 @@ api.getUserInfo()
     console.log(res);
     userInfo.setUserInfo(res);
   })
+  .catch( err => {
+    console.log(err);
+  })
 
 /**
  * Loading cards with Section
@@ -266,6 +288,9 @@ api.getInitialCards()
 
     section.renderer();
 
+})
+.catch( err => {
+  console.log(err);
 });
 
 /** Popup loading and event listener setup */
