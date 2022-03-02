@@ -26,18 +26,15 @@ function renderCard(card) {
 /**
  * Handles new place form submit (Sent to popupWithForm)
  */
-function handleNewPlaceFormSubmit() {
+function handleNewPlaceFormSubmit(inputData) {
   const card = {
-    cardName: constants.titleInput.value,
-    cardLink: constants.linkInput.value
+    cardName: inputData["title"],
+    cardLink: inputData["image-link"]
   };
-
   this._submitButton.textContent = "Saving...";
   api.setNewCard(card)
     .then(res => {
-      const newCard = new Card(res, constants.photoCardTemplate, handleCardClick, handleCardDeleteClick, handleLikeClick);
-      section.addItem(newCard.createCard());
-      newCard.updateLikes(newCard._likes, userInfo._id);
+      section.addItem(renderCard(res));
       this.close();
       })
     .catch( err => {
@@ -51,9 +48,9 @@ function handleNewPlaceFormSubmit() {
 /**
  * Handles new profile form submit (Sent to popupWithForm)
  */
-function handleProfileFormSubmit() {
+function handleProfileFormSubmit(inputData) {
   this._submitButton.textContent = "Saving...";
-  api.setUserInfo({ newName: constants.nameInput.value, newAbout: constants.descriptionInput.value })
+  api.setUserInfo({ newName: inputData["name"], newAbout: inputData["about-me"] })
   .then( res => {
     userInfo.setUserInfo(res);
     this.close();
@@ -88,10 +85,9 @@ function handleDeleteFormSubmit() {
 /**
  * Updates the avatar photo
  */
-function handleEditAvatarFormSubmit() {
+function handleEditAvatarFormSubmit(inputData) {
   this._submitButton.textContent = "Saving...";
-
-  api.updateAvatar(constants.avatarLinkInput.value)
+  api.updateAvatar(inputData["avatar-link"])
     .then((res) => {
       console.log("Avatar updated ",res);
       userInfo.setUserInfo(res);

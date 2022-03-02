@@ -36,7 +36,7 @@ class PopupWithForm extends Popup {
 
     _handleProfileFormSubmit = (evt) => {
       evt.preventDefault();
-      this._handleSubmit();
+      this._handleSubmit(this._getInputValues());
     }
 }
 

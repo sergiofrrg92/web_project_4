@@ -48,7 +48,7 @@ class Card {
       } else {
         likeButton.classList.remove('photo-card__like-button_active');
       }
-      
+
     }
 
     _addEventListeners(){
