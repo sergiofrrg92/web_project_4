@@ -20,6 +20,14 @@ class Card {
       return this._id;
     }
 
+    getName() {
+      return this._name;
+    }
+
+    getImageLink() {
+      return this._image;
+    }
+
     /**
      * Creates one single photo card with specified card information (object)
      * @param {object} card
@@ -85,9 +93,9 @@ class Card {
     _handleLikeEvent = () => {
       const likeButton = this._element.querySelector(".photo-card__like-button");
       if(likeButton.classList.contains('photo-card__like-button_active')) {
-        this._handleLikeClick(false);
+        this._handleLikeClick(this, false);
       } else {
-        this._handleLikeClick(true);
+        this._handleLikeClick(this, true);
       }
     }
 
@@ -96,7 +104,7 @@ class Card {
     }
 
     _handleDeleteEvent = () => {
-      this._handleDeleteCardClick();
+      this._handleDeleteCardClick(this);
     }
 
     _addDeleteEventListener(deleteButton) {
@@ -105,7 +113,7 @@ class Card {
 
     _addOpenPhotoEventListener(photo) {
         photo.addEventListener("click", () => {
-          this._handleCardClick();
+          this._handleCardClick(this);
         });
     }
 

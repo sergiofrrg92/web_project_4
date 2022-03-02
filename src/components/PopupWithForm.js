@@ -19,6 +19,10 @@ class PopupWithForm extends Popup {
         return inputValues;
     }
 
+    setButtonText(text) {
+      this._submitButton.textContent = text;
+    }
+
     setEventListeners() {
       this._form.addEventListener("submit", this._handleProfileFormSubmit);
       super.setEventListeners();
@@ -36,7 +40,7 @@ class PopupWithForm extends Popup {
 
     _handleProfileFormSubmit = (evt) => {
       evt.preventDefault();
-      this._handleSubmit(this._getInputValues());
+      this._handleSubmit(this, this._getInputValues());
     }
 }
 

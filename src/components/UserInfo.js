@@ -5,6 +5,14 @@ class UserInfo {
         this._avatarSelector = avatarSelector;
     }
 
+    getId() {
+      if(this._id) {
+        return this._id;
+      } else {
+        return null;
+      }
+    }
+
     getUserInfo() {
         return {
             name: document.querySelector(this._nameSelector).textContent,

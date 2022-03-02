@@ -26,112 +26,112 @@ function renderCard(card) {
 /**
  * Handles new place form submit (Sent to popupWithForm)
  */
-function handleNewPlaceFormSubmit(inputData) {
-  const card = {
+function handleNewPlaceFormSubmit(popup, inputData) {
+  const cardData = {
     cardName: inputData["title"],
     cardLink: inputData["image-link"]
   };
-  this._submitButton.textContent = "Saving...";
-  api.setNewCard(card)
+  popup.setButtonText("Saving...");
+  api.setNewCard(cardData)
     .then(res => {
       section.addItem(renderCard(res));
-      this.close();
+      popup.close();
       })
     .catch( err => {
       console.log(err);
     })
     .finally(() => {
-      this._submitButton.textContent = "Create";
+      popup.setButtonText("Create");
     })
 }
 
 /**
  * Handles new profile form submit (Sent to popupWithForm)
  */
-function handleProfileFormSubmit(inputData) {
-  this._submitButton.textContent = "Saving...";
+function handleProfileFormSubmit(popup, inputData) {
+  popup.setButtonText("Saving...");
   api.setUserInfo({ newName: inputData["name"], newAbout: inputData["about-me"] })
   .then( res => {
     userInfo.setUserInfo(res);
-    this.close();
+    popup.close();
   })
   .catch( err => {
     console.log(err);
   })
   .finally(() => {
-    this._submitButton.textContent = "Save";
+    popup.setButtonText("Save");
   })
 }
 
 /**
  * Deletes the selected Card
  */
-function handleDeleteFormSubmit() {
-  this._submitButton.textContent = "Deleting...";
+function handleDeleteFormSubmit(popup) {
+  popup.setButtonText("Deleting...");
   api.deleteCard(cardToDelete.getId())
     .then(() => {
       cardToDelete.deleteCard();
       cardToDelete=null;
-      this.close();
+      popup.close();
     })
     .catch( err => {
       console.log(err);
     })
     .finally(() => {
-      this._submitButton.textContent = "Yes";
+      popup.setButtonText("Yes");
     })
 }
 
 /**
  * Updates the avatar photo
  */
-function handleEditAvatarFormSubmit(inputData) {
-  this._submitButton.textContent = "Saving...";
+function handleEditAvatarFormSubmit(popup, inputData) {
+  popup.setButtonText("Saving...");
   api.updateAvatar(inputData["avatar-link"])
     .then((res) => {
       console.log("Avatar updated ",res);
       userInfo.setUserInfo(res);
-      this.close();
+      popup.close();
     })
     .catch( err => {
       console.log(err);
     })
     .finally(() => {
-      this._submitButton.textContent = "Save";
+      popup.setButtonText("Save");
   })
 }
 
 /**
  * Handles open photo on card click (sent to popupWithCard)
  */
-function handleCardClick() {
-  photoPopup.open(this._image, this._name);
+function handleCardClick(card) {
+  photoPopup.open(card.getImageLink(), card.getName());
 }
 
-function handleCardDeleteClick() {
+function handleCardDeleteClick(card) {
   deletePopup.open();
-  cardToDelete = this;
+  cardToDelete = card;
 }
 
 /**
  * Calls the API to add/remove a like to the list depending on the isLiked param.
  * @param {boolean} isLiked
  */
-function handleLikeClick(isLiked) {
+function handleLikeClick(card, isLiked) {
   if(isLiked) {
-    api.addLike(this.getId())
+    api.addLike(card.getId())
       .then((res) => {
         console.log("Like added succesfully", res.likes);
-        this.updateLikes(res.likes, userInfo._id);
+        card.updateLikes(res.likes, userInfo.getId());
       })
       .catch( err => {
         console.log(err);
       })
   } else {
-    api.removeLike(this.getId())
+    api.removeLike(card.getId())
       .then((res) => {
         console.log("Like removed succesfully", res.likes);
-        this.updateLikes(res.likes, userInfo._id);
+        card.updateLikes(res.likes, userInfo.getId());
       })
       .catch( err => {
         console.log(err);
@@ -164,39 +164,25 @@ const api = new Api({
   }
 });
 
-console.log(constants);
 const userInfo = new UserInfo(constants.userSelectors);
-
-/** User information loading */
-api.getUserInfo()
-  .then(res => {
-    console.log(res);
-    userInfo.setUserInfo(res);
-  })
-  .catch( err => {
-    console.log(err);
-  })
-
-/**
- * Loading cards with Section
- */
-
 let section;
 
-api.getInitialCards()
-  .then(res => {
+/** User and card information loading */
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    userInfo.setUserInfo(userData);
+
     section = new Section( {
-      items: res,
+      items: cards,
       renderer: renderCard
     },
     constants.photoGridSelector);
-
     section.renderer();
+  })
+  .catch( err => {
+    console.log(err);
+  });
 
-})
-.catch( err => {
-  console.log(err);
-});
 
 /** Popup loading and event listener setup */
 const addPopup = new PopupWithForm('.popup-add', handleNewPlaceFormSubmit);
@@ -217,10 +203,6 @@ constants.addButton.addEventListener("click", () => {
   constants.forms.get(constants.formAddName).resetValidation();
 });
 
-constants.closeButtonAdd.addEventListener("click", () => {
-  addPopup.close();
-});
-
 
 /** Edit Popup and Form */
 constants.editButton.addEventListener("click", () => {
@@ -231,15 +213,6 @@ constants.editButton.addEventListener("click", () => {
   constants.forms.get(constants.formEditName).resetValidation();
 });
 
-constants.closeButtonEdit.addEventListener("click", () => {
-  editPopup.close();
-});
-
-/** Photo popup */
-
-constants.closeButtonPhoto.addEventListener("click", () => {
-  photoPopup.close();
-});
 
 /** Edit avatar popup */
 constants.editAvatarButton.addEventListener("click", () => {
@@ -247,14 +220,6 @@ constants.editAvatarButton.addEventListener("click", () => {
   constants.forms.get(constants.formEditAvatarName).resetValidation();
 });
 
-constants.closeButtonEditAvatar.addEventListener("click", () => {
-  editAvatarPopup.close();
-});
-
-/** Delete popup */
-constants.closeButtonDelete.addEventListener("click", () => {
-  deletePopup.close();
-});
 
 
 

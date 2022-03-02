@@ -16,7 +16,7 @@ class Popup {
     setEventListeners() {
       document.addEventListener("click", this._handleClickOnOverlayClose);
       document.addEventListener("keydown", this._handleEscClose);
-      this._popup.querySelector('.popup__close-button').addEventListener("click", close);
+      this._popup.querySelector('.popup__close-button').addEventListener("click", this.close);
     }
 
     removeEventListeners() {
