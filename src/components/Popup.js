@@ -1,6 +1,8 @@
 class Popup {
     constructor(popupSelector) {
         this._popup = document.querySelector(popupSelector);
+        this._closeButton = this._popup.querySelector('.popup__close-button');
+        this.close = this.close.bind(this); //Better bind than defining close as an arrow function I guess?
     }
 
     open() {
@@ -8,7 +10,7 @@ class Popup {
         this.setEventListeners();
     }
 
-    close = () => {
+    close() {
         this._popup.classList.remove("popup_opened");
         this.removeEventListeners();
     }
@@ -16,17 +18,17 @@ class Popup {
     setEventListeners() {
       document.addEventListener("click", this._handleClickOnOverlayClose);
       document.addEventListener("keydown", this._handleEscClose);
-      this._popup.querySelector('.popup__close-button').addEventListener("click", this.close);
+      this._closeButton.addEventListener("click", this.close);
     }
 
     removeEventListeners() {
       document.removeEventListener("click", this._handleClickOnOverlayClose);
       document.removeEventListener("keydown", this._handleEscClose);
-      this._popup.querySelector('.popup__close-button').removeEventListener("click", close);
+      this._closeButton.removeEventListener("click", close);
     }
 
     _handleEscClose = (evt) => {
-        if(evt.key == "Escape" && this._popup.classList.contains('popup_opened')){
+        if(evt.key == "Escape"){
             this.close();
         }
     }

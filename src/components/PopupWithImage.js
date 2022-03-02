@@ -3,16 +3,15 @@ import { Popup } from "./Popup.js";
 class PopupWithImage extends Popup {
     constructor(popupSelector) {
         super(popupSelector);
+        this._photoContainer = this._popup.querySelector('.popup-photo__container');
+        this._photo = this._photoContainer.querySelector('.popup-photo__photo');
+        this._title = this._photoContainer.querySelector('.popup-photo__title');
     }
 
     open(photoImage, name) {
-        const photoContainer = this._popup.querySelector('.popup-photo__container');
-        const photo = photoContainer.querySelector('.popup-photo__photo');
-        const title = photoContainer.querySelector('.popup-photo__title');
-
-        photo.src = photoImage;
-        title.textContent = name;
-        photo.alt = name;
+        this._photo.src = photoImage;
+        this._title.textContent = name;
+        this._photo.alt = name;
         super.open();
     }
 }

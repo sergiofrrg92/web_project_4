@@ -1,7 +1,3 @@
-
-const popupPhoto = document.querySelector('.popup-photo');
-
-
 class Card {
 
     constructor({ _id, name, link, likes }, cardSelector, handleCardClick, handleDeleteCardClick, handleLikeClick) {
@@ -35,6 +31,9 @@ class Card {
      */
     createCard() {
       this._element = this._createNewPhotoCardElement();
+      this._likeButton = this._element.querySelector(".photo-card__like-button");
+      this._deleteButton = this._element.querySelector(".photo-card__delete-button");
+      this._photo = this._element.querySelector(".photo-card__photo");
       this._addEventListeners();
 
       return this._element;
@@ -47,28 +46,22 @@ class Card {
 
     updateLikes(likes, userId) {
       this._likes = likes;
-      const likeButton = this._element.querySelector(".photo-card__like-button");
 
       this._element.querySelector(".photo-card__like-count").textContent = this._likes.length;
 
       if(JSON.stringify(this._likes).includes(userId)) {
-        likeButton.classList.add('photo-card__like-button_active');
+        this._likeButton.classList.add('photo-card__like-button_active');
       } else {
-        likeButton.classList.remove('photo-card__like-button_active');
+        this._likeButton.classList.remove('photo-card__like-button_active');
       }
 
     }
 
     _addEventListeners(){
 
-        const likeButton = this._element.querySelector(".photo-card__like-button");
-        this._addLikeEventListener(likeButton);
-
-        const deleteButton = this._element.querySelector(".photo-card__delete-button");
-        this._addDeleteEventListener(deleteButton);
-
-        const photo = this._element.querySelector(".photo-card__photo");
-        this._addOpenPhotoEventListener(photo);
+        this._addLikeEventListener();
+        this._addDeleteEventListener();
+        this._addOpenPhotoEventListener();
     }
 
     _createNewPhotoCardElement() {
@@ -91,28 +84,27 @@ class Card {
     declare methods as arrow functions to not lose context `this`. `this` is Card instance here
     */
     _handleLikeEvent = () => {
-      const likeButton = this._element.querySelector(".photo-card__like-button");
-      if(likeButton.classList.contains('photo-card__like-button_active')) {
+      if(this._likeButton.classList.contains('photo-card__like-button_active')) {
         this._handleLikeClick(this, false);
       } else {
         this._handleLikeClick(this, true);
       }
     }
 
-    _addLikeEventListener(likeButton) {
-        likeButton.addEventListener("click", this._handleLikeEvent);
+    _addLikeEventListener() {
+      this._likeButton.addEventListener("click", this._handleLikeEvent);
     }
 
     _handleDeleteEvent = () => {
       this._handleDeleteCardClick(this);
     }
 
-    _addDeleteEventListener(deleteButton) {
-        deleteButton.addEventListener("click", this._handleDeleteEvent);
+    _addDeleteEventListener() {
+        this._deleteButton.addEventListener("click", this._handleDeleteEvent);
     }
 
-    _addOpenPhotoEventListener(photo) {
-        photo.addEventListener("click", () => {
+    _addOpenPhotoEventListener() {
+        this._photo.addEventListener("click", () => {
           this._handleCardClick(this);
         });
     }

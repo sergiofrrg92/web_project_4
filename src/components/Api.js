@@ -7,12 +7,7 @@ class Api {
         return fetch(this._options.baseUrl+"/cards/", {
             headers: this._options.headers
           })
-          .then(res => {
-            return this._checkResponse(res);
-          })
-          .then( res => {
-            return res;
-          })
+          .then(this._checkResponse);
     }
 
     setNewCard( { cardName, cardLink }) {
@@ -24,12 +19,7 @@ class Api {
           link: cardLink
         })
       })
-      .then(res => {
-        return this._checkResponse(res);
-      })
-      .then( res => {
-        return res;
-      })
+      .then(this._checkResponse);
     }
 
     addLike(id) {
@@ -37,12 +27,7 @@ class Api {
         method: "PUT",
         headers: this._options.headers
       })
-      .then(res => {
-        return this._checkResponse(res);
-      })
-      .then( res => {
-        return res;
-      })
+      .then(this._checkResponse);
     }
 
     removeLike(id) {
@@ -50,12 +35,7 @@ class Api {
         method: "DELETE",
         headers: this._options.headers
       })
-      .then(res => {
-        return this._checkResponse(res);
-      })
-      .then( res => {
-        return res;
-      })
+      .then(this._checkResponse);
     }
 
     deleteCard(id) {
@@ -63,24 +43,14 @@ class Api {
         method: "DELETE",
         headers: this._options.headers
       })
-      .then(res => {
-        return this._checkResponse(res);
-      })
-      .then( res => {
-        return res;
-      })
+      .then(this._checkResponse);
     }
 
     getUserInfo() {
       return fetch(this._options.baseUrl+"/users/me", {
         headers: this._options.headers
       })
-      .then(res => {
-        return this._checkResponse(res);
-      })
-      .then( res => {
-        return res;
-      })
+      .then(this._checkResponse);
     }
 
     setUserInfo( { newName, newAbout }) {
@@ -92,12 +62,7 @@ class Api {
           about: newAbout
         })
       })
-      .then(res => {
-        return this._checkResponse(res);
-      })
-      .then( res => {
-        return res;
-      })
+      .then(this._checkResponse);
     }
 
     updateAvatar(link) {
@@ -108,12 +73,7 @@ class Api {
           avatar: link
         })
       })
-      .then(res => {
-        return this._checkResponse(res);
-      })
-      .then( res => {
-        return res;
-      })
+      .then(this._checkResponse);
     }
 
     _checkResponse(res) {

@@ -3,6 +3,9 @@ class UserInfo {
         this._nameSelector = nameSelector;
         this._jobSelector = jobSelector;
         this._avatarSelector = avatarSelector;
+        this._nameElement = document.querySelector(this._nameSelector);
+        this._jobElement = document.querySelector(this._jobSelector);
+        this._avatarElement = document.querySelector(this._avatarSelector);
     }
 
     getId() {
@@ -15,20 +18,16 @@ class UserInfo {
 
     getUserInfo() {
         return {
-            name: document.querySelector(this._nameSelector).textContent,
-            job: document.querySelector(this._jobSelector).textContent,
-            avatar: document.querySelector(this._avatarSelector).src,
+            name: this._nameElement.textContent,
+            job: this._jobElement.textContent,
+            avatar: this._avatarElement.src
         };
     }
 
     setUserInfo( { name, about, _id, avatar } ) {
-        const nameElement = document.querySelector(this._nameSelector);
-        const jobElement = document.querySelector(this._jobSelector);
-        const avatarElement = document.querySelector(this._avatarSelector);
-
-        nameElement.textContent = name;
-        jobElement.textContent = about;
-        avatarElement.src = avatar;
+        this._nameElement.textContent = name;
+        this._jobElement.textContent = about;
+        this._avatarElement = avatar;
         this._id = _id;
     }
 }

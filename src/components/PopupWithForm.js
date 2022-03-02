@@ -6,20 +6,20 @@ class PopupWithForm extends Popup {
       this._handleSubmit = handleSubmit;
       this._form = this._popup.querySelector('.form');
       this._submitButton = this._popup.querySelector('.form__submit-button');
+      this._inputs = Array.from(this._popup.querySelectorAll(".form__text-input"));
     }
 
     _getInputValues() {
         const inputValues = {};
-        const inputs = Array.from(this._popup.querySelectorAll(".form__text-input"));
 
-        inputs.forEach((input) => {
+        this._inputs.forEach((input) => {
             inputValues[input.getAttribute('name')] = input.value;
         });
 
         return inputValues;
     }
 
-    setButtonText(text) {
+    setButtonText(text="Saving...") {
       this._submitButton.textContent = text;
     }
 

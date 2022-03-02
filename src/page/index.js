@@ -34,7 +34,7 @@ function handleNewPlaceFormSubmit(popup, inputData) {
   popup.setButtonText("Saving...");
   api.setNewCard(cardData)
     .then(res => {
-      section.addItem(renderCard(res));
+      section.addItem(res);
       popup.close();
       })
     .catch( err => {
