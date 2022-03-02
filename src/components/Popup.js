@@ -8,7 +8,7 @@ class Popup {
         this.setEventListeners();
     }
 
-    close() {
+    close = () => {
         this._popup.classList.remove("popup_opened");
         this.removeEventListeners();
     }

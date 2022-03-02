@@ -7,101 +7,9 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import { UserInfo } from "../components/UserInfo.js"
 import { Section } from "../components/Section.js";
 import { Api } from "../components/Api.js"
+import * as constants from "../utils/constants";
 
-//TODO how to use it on PopupForm when opening it, to retrieve the info.
-const userSelectors = {
-  nameSelector: ".profile__name",
-  jobSelector: ".profile__description",
-  avatarSelector: ".profile__photo"
-};
-
-const initialUserInfo = {
-  newName: "Jacques Cousteau",
-  newJob: "Explorer"
-};
-
-/** Declaration of the Popups */
-const popupEdit = document.querySelector('.popup-edit');
-const popupAdd = document.querySelector('.popup-add');
-const popupPhoto = document.querySelector('.popup-photo');
-const popupDelete = document.querySelector('.popup-delete')
-const popupEditAvatar = document.querySelector('.popup-edit-avatar');
-
-/** Declaration of the Close Buttons */
-const closeButtonEdit = popupEdit.querySelector('.popup__close-button');
-const closeButtonAdd = popupAdd.querySelector('.popup__close-button');
-const closeButtonPhoto = popupPhoto.querySelector('.popup__close-button');
-const closeButtonDelete = popupDelete.querySelector('.popup__close-button');
-const closeButtonEditAvatar = popupEditAvatar.querySelector('.popup__close-button');
-
-/** Declaration of the Forms */
-
-const formEditName = 'edit-form';
-const formAddName = 'add-form';
-const formDeleteName = 'delete-form';
-const formEditAvatarName = 'edit-avatar-form';
-
-const formEdit = popupEdit.querySelector('.form');
-const nameInput = formEdit.querySelector('.form__text-input[name="name"]');
-const descriptionInput = formEdit.querySelector('.form__text-input[name="about-me"]');
-
-const formAdd = popupAdd.querySelector('.form');
-const titleInput = formAdd.querySelector('.form__text-input[name="title"]');
-const linkInput = formAdd.querySelector('.form__text-input[name="image-link"]');
-
-const formEditAvatar = popupEditAvatar.querySelector('.form');
-const avatarLinkInput = formEditAvatar.querySelector('.form__text-input[name="avatar-link"]');
-
-const profile = document.querySelector('.profile');
-const editButton = profile.querySelector(".profile__edit-button");
-const addButton = profile.querySelector(".profile__add-button");
-const editAvatarButton = profile.querySelector(".profile__photo-edit-button");
-
-/** Declaration of the Photos */
-const photoGridSelector = ".photos__grid";
-const photoCardTemplate = document.querySelector("#photo-card__template").content;
-
-/** Declaration of the Initial Cards */
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
-  },
-  {
-    name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
-  },
-  {
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg"
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg"
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg"
-  }
-];
-
-const forms = new Map();
 let cardToDelete;
-
-/** Declaration of the Setting object for card validation */
-const validationConfig = {
-  formSelector: ".form",
-  inputSelector: ".form__text-input",
-  submitButtonSelector: ".form__submit-button",
-  inactiveButtonClass: "form__submit-button_disabled",
-  inputErrorClass: "form__text-input-error_active",
-  errorClass: "form__input-error_visible"
-};
-
 
 /**
  * Handles card creation on Section
@@ -109,7 +17,7 @@ const validationConfig = {
  * @param {string} link - The link of the photo
  */
 function renderCard(card) {
-  const newCard = new Card(card, photoCardTemplate, handleCardClick,  handleCardDeleteClick, handleLikeClick);
+  const newCard = new Card(card, constants.photoCardTemplate, handleCardClick,  handleCardDeleteClick, handleLikeClick);
   const photoCard = newCard.createCard();
   newCard.updateLikes(newCard._likes, userInfo._id);
   return photoCard;
@@ -120,23 +28,23 @@ function renderCard(card) {
  */
 function handleNewPlaceFormSubmit() {
   const card = {
-    cardName: titleInput.value,
-    cardLink: linkInput.value
+    cardName: constants.titleInput.value,
+    cardLink: constants.linkInput.value
   };
 
   this._submitButton.textContent = "Saving...";
   api.setNewCard(card)
     .then(res => {
-      const newCard = new Card(res, photoCardTemplate, handleCardClick, handleCardDeleteClick, handleLikeClick);
+      const newCard = new Card(res, constants.photoCardTemplate, handleCardClick, handleCardDeleteClick, handleLikeClick);
       section.addItem(newCard.createCard());
       newCard.updateLikes(newCard._likes, userInfo._id);
+      this.close();
       })
     .catch( err => {
       console.log(err);
     })
     .finally(() => {
-        this.close();
-        this._submitButton.textContent = "Create";
+      this._submitButton.textContent = "Create";
     })
 }
 
@@ -145,15 +53,15 @@ function handleNewPlaceFormSubmit() {
  */
 function handleProfileFormSubmit() {
   this._submitButton.textContent = "Saving...";
-  api.setUserInfo({ newName: nameInput.value, newAbout: descriptionInput.value })
+  api.setUserInfo({ newName: constants.nameInput.value, newAbout: constants.descriptionInput.value })
   .then( res => {
     userInfo.setUserInfo(res);
+    this.close();
   })
   .catch( err => {
     console.log(err);
   })
   .finally(() => {
-    this.close();
     this._submitButton.textContent = "Save";
   })
 }
@@ -167,12 +75,12 @@ function handleDeleteFormSubmit() {
     .then(() => {
       cardToDelete.deleteCard();
       cardToDelete=null;
+      this.close();
     })
     .catch( err => {
       console.log(err);
     })
     .finally(() => {
-      this.close();
       this._submitButton.textContent = "Yes";
     })
 }
@@ -183,16 +91,16 @@ function handleDeleteFormSubmit() {
 function handleEditAvatarFormSubmit() {
   this._submitButton.textContent = "Saving...";
 
-  api.updateAvatar(avatarLinkInput.value)
+  api.updateAvatar(constants.avatarLinkInput.value)
     .then((res) => {
       console.log("Avatar updated ",res);
       userInfo.setUserInfo(res);
+      this.close();
     })
     .catch( err => {
       console.log(err);
     })
     .finally(() => {
-      this.close();
       this._submitButton.textContent = "Save";
   })
 }
@@ -240,12 +148,12 @@ function handleLikeClick(isLiked) {
  * Saves the formValidators on a Map for future access
  */
 function enableFormValidationOnAllForms() {
-  const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
+  const formList = Array.from(document.querySelectorAll(constants.validationConfig.formSelector));
   formList.forEach((formElement) => {
     const formName = formElement.getAttribute("name");
-    const formValidator = new FormValidator(validationConfig, formElement);
+    const formValidator = new FormValidator(constants.validationConfig, formElement);
     formValidator.enableValidation();
-    forms.set(formName, formValidator);
+    constants.forms.set(formName, formValidator);
   });
 }
 
@@ -260,7 +168,8 @@ const api = new Api({
   }
 });
 
-const userInfo = new UserInfo(userSelectors);
+console.log(constants);
+const userInfo = new UserInfo(constants.userSelectors);
 
 /** User information loading */
 api.getUserInfo()
@@ -284,7 +193,7 @@ api.getInitialCards()
       items: res,
       renderer: renderCard
     },
-    photoGridSelector);
+    constants.photoGridSelector);
 
     section.renderer();
 
@@ -307,47 +216,47 @@ enableFormValidationOnAllForms();
 /** Declaration of the event listeners */
 
 /** Add Popup and Form */
-addButton.addEventListener("click", () => {
+constants.addButton.addEventListener("click", () => {
   addPopup.open();
-  forms.get(formAddName).resetValidation();
+  constants.forms.get(constants.formAddName).resetValidation();
 });
 
-closeButtonAdd.addEventListener("click", () => {
+constants.closeButtonAdd.addEventListener("click", () => {
   addPopup.close();
 });
 
 
 /** Edit Popup and Form */
-editButton.addEventListener("click", () => {
+constants.editButton.addEventListener("click", () => {
   const currentUserInfo = userInfo.getUserInfo();
-  nameInput.value = currentUserInfo.name;
-  descriptionInput.value = currentUserInfo.job;
+  constants.nameInput.value = currentUserInfo.name;
+  constants.descriptionInput.value = currentUserInfo.job;
   editPopup.open();
-  forms.get(formEditName).resetValidation();
+  constants.forms.get(constants.formEditName).resetValidation();
 });
 
-closeButtonEdit.addEventListener("click", () => {
+constants.closeButtonEdit.addEventListener("click", () => {
   editPopup.close();
 });
 
 /** Photo popup */
 
-closeButtonPhoto.addEventListener("click", () => {
+constants.closeButtonPhoto.addEventListener("click", () => {
   photoPopup.close();
 });
 
 /** Edit avatar popup */
-editAvatarButton.addEventListener("click", () => {
+constants.editAvatarButton.addEventListener("click", () => {
   editAvatarPopup.open();
-  forms.get(formEditAvatarName).resetValidation();
+  constants.forms.get(constants.formEditAvatarName).resetValidation();
 });
 
-closeButtonEditAvatar.addEventListener("click", () => {
+constants.closeButtonEditAvatar.addEventListener("click", () => {
   editAvatarPopup.close();
 });
 
 /** Delete popup */
-closeButtonDelete.addEventListener("click", () => {
+constants.closeButtonDelete.addEventListener("click", () => {
   deletePopup.close();
 });
 
