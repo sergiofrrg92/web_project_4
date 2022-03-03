@@ -1,11 +1,13 @@
 class Card {
 
-    constructor({ _id, name, link, likes }, cardSelector, handleCardClick, handleDeleteCardClick, handleLikeClick) {
+    constructor({ _id, name, link, likes, owner }, currentUserId, cardSelector, handleCardClick, handleDeleteCardClick, handleLikeClick) {
 
         this._id = _id;
+        this._currentUserId = currentUserId;
         this._name = name;
         this._image = link;
         this._likes = likes;
+        this._owner = owner;
         this._cardSelector = cardSelector;
         this._handleCardClick = handleCardClick;
         this._handleDeleteCardClick = handleDeleteCardClick;
@@ -31,9 +33,16 @@ class Card {
      */
     createCard() {
       this._element = this._createNewPhotoCardElement();
+      this._likeCountElement = this._element.querySelector(".photo-card__like-count");
       this._likeButton = this._element.querySelector(".photo-card__like-button");
       this._deleteButton = this._element.querySelector(".photo-card__delete-button");
       this._photo = this._element.querySelector(".photo-card__photo");
+      this.updateLikes(this._likes, this._currentUserId);
+      if(this._owner._id != this._currentUserId) {
+        this._deleteButton.remove();
+        this._deleteButton = null;
+      }
+
       this._addEventListeners();
 
       return this._element;
@@ -47,7 +56,7 @@ class Card {
     updateLikes(likes, userId) {
       this._likes = likes;
 
-      this._element.querySelector(".photo-card__like-count").textContent = this._likes.length;
+      this._likeCountElement.textContent = this._likes.length;
 
       if(JSON.stringify(this._likes).includes(userId)) {
         this._likeButton.classList.add('photo-card__like-button_active');
@@ -60,8 +69,10 @@ class Card {
     _addEventListeners(){
 
         this._addLikeEventListener();
-        this._addDeleteEventListener();
         this._addOpenPhotoEventListener();
+        if(this._deleteButton) {
+          this._addDeleteEventListener();
+        }
     }
 
     _createNewPhotoCardElement() {

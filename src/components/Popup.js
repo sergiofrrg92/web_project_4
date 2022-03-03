@@ -16,13 +16,13 @@ class Popup {
     }
 
     setEventListeners() {
-      document.addEventListener("click", this._handleClickOnOverlayClose);
+      document.addEventListener("mousedown", this._handleClickOnOverlayClose);
       document.addEventListener("keydown", this._handleEscClose);
       this._closeButton.addEventListener("click", this.close);
     }
 
     removeEventListeners() {
-      document.removeEventListener("click", this._handleClickOnOverlayClose);
+      document.removeEventListener("mousedown", this._handleClickOnOverlayClose);
       document.removeEventListener("keydown", this._handleEscClose);
       this._closeButton.removeEventListener("click", close);
     }

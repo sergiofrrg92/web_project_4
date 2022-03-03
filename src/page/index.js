@@ -17,9 +17,8 @@ let cardToDelete;
  * @param {string} link - The link of the photo
  */
 function renderCard(card) {
-  const newCard = new Card(card, constants.photoCardTemplate, handleCardClick,  handleCardDeleteClick, handleLikeClick);
+  const newCard = new Card(card, userInfo.getId(), constants.photoCardTemplate, handleCardClick,  handleCardDeleteClick, handleLikeClick);
   const photoCard = newCard.createCard();
-  newCard.updateLikes(newCard._likes, userInfo._id);
   return photoCard;
 }
 
@@ -171,7 +170,7 @@ let section;
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
     userInfo.setUserInfo(userData);
-
+    console.log(userData);
     section = new Section( {
       items: cards,
       renderer: renderCard
