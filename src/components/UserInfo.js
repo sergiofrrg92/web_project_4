@@ -27,7 +27,7 @@ class UserInfo {
     setUserInfo( { name, about, _id, avatar } ) {
         this._nameElement.textContent = name;
         this._jobElement.textContent = about;
-        this._avatarElement = avatar;
+        this._avatarElement.src = avatar;
         this._id = _id;
     }
 }
